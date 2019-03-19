@@ -1,10 +1,11 @@
 package com.codecool;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class Floor {
-    private LinkedList<Person> upQueue;
-    private LinkedList<Person> downQueue;
+    private List<Person> upQueue = new LinkedList<>();
+    private List<Person> downQueue;
     private int floorNumber;
 
     public void summonElevator(Elevator elevator) {
