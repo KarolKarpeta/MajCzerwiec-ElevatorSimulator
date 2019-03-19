@@ -12,8 +12,12 @@ public class Building {
     private void moveElevator(Floor destination, Elevator elevator) {
     }
 
+    public void generatePerson(Building building) {
+    }
+
     public static void main(String[] args) {
         Building kolejowa5na7 = new Building(8, 1);
+
     }
 
 }
