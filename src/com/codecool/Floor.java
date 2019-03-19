@@ -8,7 +8,8 @@ public class Floor {
     private List<Person> downQueue = new LinkedList<>();
     private int floorNumber;
 
-    public void summonElevator(Elevator elevator) {
+    public void summonElevator() {
+
     }
 
     /**
@@ -16,7 +17,7 @@ public class Floor {
      * @param person already created Person object to add to the Floor
      */
     public void addPerson(Person person) {
-        //Person newPerson = new Person()
+
     }
 
     public Floor(int floorNumber) {
