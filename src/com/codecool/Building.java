@@ -14,6 +14,7 @@ public class Building {
 
     public static void main(String[] args) {
         Building kolejowa5na7 = new Building(8, 1);
+
     }
 
 }
