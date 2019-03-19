@@ -31,10 +31,6 @@ public class Building {
         }
 
         Person person = new Person(destinationFloor);
-
-        System.out.println(floors.length);
-        System.out.println(currentFloor);
-        System.out.println(floors[currentFloor]);
         floors[currentFloor].addPerson(person);
         View.personCreationMessage(currentFloor, destinationFloor);
     }
