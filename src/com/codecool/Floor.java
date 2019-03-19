@@ -11,7 +11,11 @@ public class Floor {
     public void summonElevator(Elevator elevator) {
     }
 
-    public void generatePerson() {
+    /**
+     * Appends Person to upQueue  or DownQueue
+     * @param person already created Person object to add to the Floor
+     */
+    public void addPerson(Person person) {
         //Person newPerson = new Person()
     }
 }
