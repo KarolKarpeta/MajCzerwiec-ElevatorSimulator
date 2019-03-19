@@ -1,6 +1,6 @@
 package com.codecool;
 
-public class Building extends Floor {
+public class Building {
     private final Floors[] floors;
     private final Elevator[] elevators;
 
