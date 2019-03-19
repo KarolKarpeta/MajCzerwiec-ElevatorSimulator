@@ -6,4 +6,8 @@ public class Person {
     public Person(int destinationFloor) {
         this.destinationFloor = destinationFloor;
     }
+
+    public int getDestinationFloor() {
+        return destinationFloor;
+    }
 }

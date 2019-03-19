@@ -16,7 +16,11 @@ public class Floor {
      * @param person already created Person object to add to the Floor
      */
     public void addPerson(Person person) {
-        //Person newPerson = new Person()
+        if(person.getDestinationFloor() > this.floorNumber) {
+            upQueue.add(person);
+        } else {
+            downQueue.add(person);
+        }
     }
 
     public Floor(int floorNumber) {
