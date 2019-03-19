@@ -12,5 +12,6 @@ public class Floor {
     }
 
     public void generatePerson() {
+        //Person newPerson = new Person()
     }
 }
