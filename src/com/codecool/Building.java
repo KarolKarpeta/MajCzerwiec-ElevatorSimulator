@@ -17,7 +17,8 @@ public class Building {
         }
     }
 
-    private void moveElevator(Floor destination, Elevator elevator) {
+    private void sendElevator(Floor destination, Elevator elevator) {
+        //budynek daje polecenie windzie, że ma jechać na dane piętro
     }
 
     public void generatePerson() {

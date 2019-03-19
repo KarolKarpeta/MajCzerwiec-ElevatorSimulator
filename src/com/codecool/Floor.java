@@ -8,7 +8,13 @@ public class Floor {
     private List<Person> downQueue = new LinkedList<>();
     private int floorNumber;
 
-    public void summonElevator(Elevator elevator) {
+    public int getFloorNumber() {
+        return floorNumber;
+    }
+
+
+    public void summonElevator() {
+        //floor mówi budynkowi, że chce windę, bo ma ludzi jadących na dół i/lub górę
     }
 
     /**
