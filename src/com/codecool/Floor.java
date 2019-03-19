@@ -18,4 +18,5 @@ public class Floor {
     public void addPerson(Person person) {
         //Person newPerson = new Person()
     }
+
 }
