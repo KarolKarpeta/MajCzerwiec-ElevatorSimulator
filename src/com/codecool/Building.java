@@ -7,8 +7,14 @@ public class Building {
     private final Elevator[] elevators;
 
     public Building(int nrOfFloors, int nrOfElevators) {
-        this.floors = new Floor[nrOfFloors];
-        this.elevators = new Elevator[nrOfElevators];
+        floors = new Floor[nrOfFloors];
+        for (int i = 0; i < nrOfFloors; i++) {
+            floors[i] = new Floor(i);
+        }
+        elevators = new Elevator[nrOfElevators];
+        for (int i = 0; i < nrOfElevators; i++) {
+            elevators[i] = new Elevator(floors[0]);
+        }
     }
 
     private void moveElevator(Floor destination, Elevator elevator) {
@@ -26,13 +32,16 @@ public class Building {
 
         Person person = new Person(destinationFloor);
 
+        System.out.println(floors.length);
+        System.out.println(currentFloor);
+        System.out.println(floors[currentFloor]);
         floors[currentFloor].addPerson(person);
-
+        View.personCreationMessage(currentFloor, destinationFloor);
     }
 
     public static void main(String[] args) {
         Building kolejowa5na7 = new Building(8, 1);
-
+        kolejowa5na7.generatePerson();
 
 
 

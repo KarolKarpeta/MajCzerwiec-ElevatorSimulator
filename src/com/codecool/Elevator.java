@@ -17,4 +17,8 @@ public class Elevator {
 
     public void loadPeople() {
     }
+
+    public Elevator(Floor floor) {
+        this.floor = floor;
+    }
 }
