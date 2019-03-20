@@ -2,6 +2,11 @@ package com.codecool;
 
 public class Task {
     private int destinationFloorNumber;
+
+    public boolean hasToLoad() {
+        return load;
+    }
+
     private boolean load;
 
 

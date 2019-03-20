@@ -45,7 +45,7 @@ public class Building {
         //budynek daje polecenie windzie, że ma jechać na dane piętro
     }
 
-    public void generatePerson() {
+    void generatePerson() {
         Random randomNumber = new Random();
 
         int currentFloor = randomNumber.nextInt(floors.length);
@@ -58,12 +58,6 @@ public class Building {
         Person person = new Person(destinationFloor);
         floors[currentFloor].addPersonToRelevantQueue(person);
 
-    }
-
-    public static void main(String[] args) {
-        Building kolejowa5na7 = createBuilding(8, 1);
-        SpawnPeople spawnPeople = new SpawnPeople();
-        (new Thread(spawnPeople)).start();
     }
 
     private LinkedList<Elevator> getAvailableElevators(int destinationFloorNumber) {
@@ -102,7 +96,7 @@ public class Building {
         return theClosestElevator;
     }
 
-    public void handleTask(Task task) {
+    void handleTask(Task task) {
         LinkedList<Elevator> availableElevators = getAvailableElevators(task.getDestinationFloorNumber());
         Elevator theChosenElevator;
         if (availableElevators.size() > 0) {
@@ -111,5 +105,12 @@ public class Building {
             theChosenElevator = getElevatorWithSmallestNumberOfTasks();
         }
         theChosenElevator.addTask(task);
+        View.showElevator(theChosenElevator);
+    }
+
+    public static void main(String[] args) {
+        Building kolejowa5na7 = createBuilding(8, 1);
+        SpawnPeople spawnPeople = new SpawnPeople();
+        (new Thread(spawnPeople)).start();
     }
 }

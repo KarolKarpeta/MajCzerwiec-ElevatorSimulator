@@ -1,13 +1,19 @@
 package com.codecool;
 
 import java.util.PriorityQueue;
+import java.util.List;
 import java.util.LinkedList;
 
 
 public class Elevator {
-    private LinkedList<Person> people;
+    private LinkedList<Person> people = new LinkedList<>();
     private static final int CAPACITY = 3;
-    private PriorityQueue<Task> tasks;
+
+    public LinkedList<Task> getTasks() {
+        return tasks;
+    }
+
+    private LinkedList<Task> tasks = new LinkedList<>();
     private Floor floor;
 
     public void moveUp(Floor floor) {
@@ -50,25 +56,26 @@ public class Elevator {
 
     }
 
-    public boolean isAvailable(int destinationFloorNumber) {
+    boolean isAvailable(int destinationFloorNumber) {
         Direction newTaskDirection = getNewTaskDirection(destinationFloorNumber);
+        System.out.println(people);
         return (people.size() < CAPACITY && this.getCurrentDirection() == newTaskDirection)
                 || tasks.isEmpty();
     }
 
-    public Elevator(Floor floor) {
+    Elevator(Floor floor) {
         this.floor = floor;
     }
 
-    public void addTask(Task task){
+    void addTask(Task task){
         tasks.add(task);
     }
 
-    public Floor getFloor() {
+    Floor getFloor() {
         return floor;
     }
 
-    public int getNumberOfTasks() {
+    int getNumberOfTasks() {
         return tasks.size();
     }
 }
