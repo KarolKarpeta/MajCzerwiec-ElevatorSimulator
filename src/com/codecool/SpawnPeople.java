@@ -6,7 +6,6 @@ public class SpawnPeople implements Runnable {
     public void run() {
         Building kolejowa = Building.getBuilding();
         for (int i = 0; i < 100; i++) {
-            //start spawning people for first building
             kolejowa.generatePerson();
             try {
                 Thread.sleep(2000);
