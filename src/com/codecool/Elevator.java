@@ -1,17 +1,19 @@
 package com.codecool;
 
 public class Elevator {
-    private static final int GOING_UP = 1;
-    private static final int WAITING = 0;
-    private static final int GOING_DOWN = -1;
     private java.util.LinkedList<Person> people;
     private static final int CAPACITY = 3;
     private java.util.PriorityQueue<Floor> tasks;
     private Floor floor;
 
+    public enum Direction {
+        GOING_UP, WAITING, GOING_DOWN
+    }
+
     //bierze piętro z PriorityQueue i wyładowuje i ładuje ludzi,
     //a jak masz pusta kolejke to stoi gdzie stała
     //jak ma pełne capacity to
+
     public void moveUp(Floor floor) {
 
     }
@@ -25,36 +27,36 @@ public class Elevator {
     public void loadPeople() {
     }
 
-    private int newTaskDirection(int destinationFloorNumber) {
+    private Direction newTaskDirection(int destinationFloorNumber) {
         int currentFloorNumber = this.floor.getFloorNumber();
         if (destinationFloorNumber < currentFloorNumber) {
-            return GOING_DOWN;
+            return Direction.GOING_DOWN;
         } else if (destinationFloorNumber > currentFloorNumber) {
-            return GOING_UP;
+            return Direction.GOING_UP;
         } else {
-            return WAITING;
+            return Direction.WAITING;
         }
     }
 
-    private int currentDirection() {
+    private Direction currentDirection() {
         int currentFloorNumber = this.floor.getFloorNumber();
         if (tasks.peek() != null) {
             int nextFloorNumber = tasks.peek().getFloorNumber();
             if (nextFloorNumber < currentFloorNumber) {
-                return GOING_DOWN;
+                return Direction.GOING_DOWN;
             } else if (nextFloorNumber > currentFloorNumber) {
-                return GOING_UP;
+                return Direction.GOING_UP;
             } else {
-                return WAITING;
+                return Direction.WAITING;
             }
         } else {
-            return WAITING;
+            return Direction.WAITING;
         }
 
     }
 
     public boolean isAvailable(Floor destinationFloor) {
-        int newTaskDirection = newTaskDirection(destinationFloor.getFloorNumber());
+        Direction newTaskDirection = newTaskDirection(destinationFloor.getFloorNumber());
         return (people.size() < CAPACITY && this.currentDirection() == newTaskDirection)
                 || tasks.isEmpty();
     }
