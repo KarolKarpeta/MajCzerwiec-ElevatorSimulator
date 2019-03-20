@@ -6,9 +6,7 @@ public class Elevator {
     private java.util.PriorityQueue<Floor> tasks;
     private Floor floor;
 
-    public enum Direction {
-        GOING_UP, WAITING, GOING_DOWN
-    }
+
 
     //bierze piętro z PriorityQueue i wyładowuje i ładuje ludzi,
     //a jak masz pusta kolejke to stoi gdzie stała

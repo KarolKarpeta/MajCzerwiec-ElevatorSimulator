@@ -41,7 +41,6 @@ public class Building {
         return floors[floor.getFloorNumber()+1];
     }
 
-
     private void sendElevator(Floor destination, Elevator elevator) {
         //budynek daje polecenie windzie, że ma jechać na dane piętro
     }
@@ -63,8 +62,6 @@ public class Building {
 
     public static void main(String[] args) {
         Building kolejowa5na7 = createBuilding(8, 1);
-        kolejowa5na7.generatePerson();
-        System.out.println(getBuilding());
         SpawnPeople spawnPeople = new SpawnPeople();
         (new Thread(spawnPeople)).start();
 
