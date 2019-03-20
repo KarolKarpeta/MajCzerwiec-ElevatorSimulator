@@ -43,7 +43,7 @@ public class Elevator {
     private Direction getCurrentDirection() {
         int currentFloorNumber = this.floor.getFloorNumber();
         if (tasks.peek() != null) {
-            int nextFloorNumber = tasks.peek().getFloorNumber();
+            int nextFloorNumber = tasks.peek().getDestinationFloorNumber();
             if (nextFloorNumber < currentFloorNumber) {
                 return Direction.GOING_DOWN;
             } else if (nextFloorNumber > currentFloorNumber) {
