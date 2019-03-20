@@ -67,10 +67,15 @@ public class Building {
         System.out.println("Coś");
     }
 
-    private LinkedList<Elevator> getAvailableElevators(){
-        System.out.println("Dupa");
+    private LinkedList<Elevator> getAvailableElevators(int destinationFloorNumber){
+        LinkedList<Elevator> availableElevators = new LinkedList<>();
+        for (Elevator elevator : elevators) {
+            if (elevator.isAvailable(destinationFloorNumber)) {
+                availableElevators.add(elevator);
+            }
+        }
+        return availableElevators;
     }
-
 
     /**
      * Sends task to the chosen Elevator
