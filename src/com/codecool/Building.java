@@ -1,10 +1,28 @@
 package com.codecool;
 
+import java.util.Random;
+import java.util.LinkedList;
+
 public class Building {
     private final Floor[] floors;
     private final Elevator[] elevators;
+    private static Building thisBuilding;
 
-    public Building(int nrOfFloors, int nrOfElevators) {
+    public static Building getBuilding(){
+        return thisBuilding;
+    }
+
+    private static Building createBuilding(int nrOfFloors, int nrOfElevators){
+        if(thisBuilding == null){
+            thisBuilding = new Building(nrOfFloors, nrOfElevators);
+        }else{
+            System.out.println("Building already exists!");
+        }
+        return thisBuilding;
+
+    }
+
+    private Building(int nrOfFloors, int nrOfElevators) {
         floors = new Floor[nrOfFloors];
         for (int i = 0; i < nrOfFloors; i++) {
             floors[i] = new Floor(i);
@@ -15,12 +33,12 @@ public class Building {
         }
     }
 
-    public Floor getLowerFloor(Floor floor) {
-        return floors[floor.getFloorNumber() - 1];
+    public Floor getLowerFloor(Floor floor){
+        return floors[floor.getFloorNumber()-1];
     }
 
-    public Floor getHigherFloor(Floor floor) {
-        return floors[floor.getFloorNumber() + 1];
+    public Floor getHigherFloor(Floor floor){
+        return floors[floor.getFloorNumber()+1];
     }
 
 
@@ -28,10 +46,27 @@ public class Building {
         //budynek daje polecenie windzie, że ma jechać na dane piętro
     }
 
-    public static void main(String[] args) {
-        Building kolejowa5na7 = new Building(8, 1);
-        //odpal wątek!!!!!!kolejowa5na7.generatePerson();
+    public void generatePerson() {
+        Random randomNumber = new Random();
 
+        int currentFloor = randomNumber.nextInt(floors.length);
+        int destinationFloor = currentFloor;
+
+        while (destinationFloor == currentFloor) {
+            destinationFloor = randomNumber.nextInt(floors.length);
+        }
+
+        Person person = new Person(destinationFloor);
+        floors[currentFloor].addPerson(person);
+
+    }
+
+    public static void main(String[] args) {
+        Building kolejowa5na7 = createBuilding(8, 1);
+        kolejowa5na7.generatePerson();
+        System.out.println(getBuilding());
+        SpawnPeople spawnPeople = new SpawnPeople();
+        (new Thread(spawnPeople)).start();
 
     }
 
