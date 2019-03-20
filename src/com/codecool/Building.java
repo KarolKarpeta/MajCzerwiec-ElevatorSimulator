@@ -8,14 +8,14 @@ public class Building {
     private final Elevator[] elevators;
     private static Building thisBuilding;
 
-    public static Building getBuilding(){
+    public static Building getBuilding() {
         return thisBuilding;
     }
 
-    private static Building createBuilding(int nrOfFloors, int nrOfElevators){
-        if(thisBuilding == null){
+    private static Building createBuilding(int nrOfFloors, int nrOfElevators) {
+        if (thisBuilding == null) {
             thisBuilding = new Building(nrOfFloors, nrOfElevators);
-        }else{
+        } else {
             System.out.println("Building already exists!");
         }
         return thisBuilding;
@@ -33,12 +33,12 @@ public class Building {
         }
     }
 
-    public Floor getLowerFloor(Floor floor){
-        return floors[floor.getFloorNumber()-1];
+    public Floor getLowerFloor(Floor floor) {
+        return floors[floor.getFloorNumber() - 1];
     }
 
-    public Floor getHigherFloor(Floor floor){
-        return floors[floor.getFloorNumber()+1];
+    public Floor getHigherFloor(Floor floor) {
+        return floors[floor.getFloorNumber() + 1];
     }
 
     private void sendElevator(Floor destination, Elevator elevator) {
@@ -67,7 +67,7 @@ public class Building {
         System.out.println("Coś");
     }
 
-    private LinkedList<Elevator> getAvailableElevators(int destinationFloorNumber){
+    private LinkedList<Elevator> getAvailableElevators(int destinationFloorNumber) {
         LinkedList<Elevator> availableElevators = new LinkedList<>();
         for (Elevator elevator : elevators) {
             if (elevator.isAvailable(destinationFloorNumber)) {
@@ -79,15 +79,26 @@ public class Building {
 
     /**
      * Sends task to the chosen Elevator
+     *
      * @param task
      */
-    public void handleTask(Task task){
+    public void handleTask(Task task) {
         //wybieramy windę
         //weż dostępne windy
-        LinkedList<Elevator> availablElevators = getAvailableElevators();
-        if(availablElevators.size() > 0){
+        LinkedList<Elevator> availableElevators = getAvailableElevators(task.getDestinationFloorNumber());
+        if (availableElevators.size() > 0) {
+            int distanceToClosestElevator = Integer.MAX_VALUE;
+
+            for (Elevator elevator : availableElevators) {
+                int distanceFromPersonToElevator = Math.abs(task.getStartFloorNumber() - elevator.getFloor().getFloorNumber());
+
+                if (distanceFromPersonToElevator < distanceToClosestElevator) {
+                    distanceToClosestElevator = distanceFromPersonToElevator;
+                }
+            }
+
             //spośród dostępnych wind weź tę, która jest najbliżej
-        }else{//jak nie ma dostępnych wind:
+        } else {//jak nie ma dostępnych wind:
             //weź windę, która ma najmniej tasków
         }
         //wybrana winda otrzymuje Task
