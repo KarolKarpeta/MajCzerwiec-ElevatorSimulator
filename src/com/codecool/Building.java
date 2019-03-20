@@ -77,6 +77,34 @@ public class Building {
         return availableElevators;
     }
 
+    private Elevator getElevatorWithSmallestNumberOfTasks() {
+        int smallestNumberOfTasks = Integer.MAX_VALUE;
+        Elevator leastBusy = elevators[0];
+        for (Elevator elevator : elevators) {
+            int numberOfTasks = elevator.getNumberOfTasks();
+            if (numberOfTasks < smallestNumberOfTasks) {
+                smallestNumberOfTasks = numberOfTasks;
+                leastBusy = elevator;
+            }
+        }
+        return leastBusy;
+    }
+
+
+    private Elevator getClosestElevator(LinkedList<Elevator> availableElevators, Task task) {
+        int distanceToClosestElevator = Integer.MAX_VALUE;
+        Elevator theClosestElevator = availableElevators.get(0);
+        for (Elevator elevator : availableElevators) {
+            int distanceFromPersonToElevator = Math.abs(task.getDestinationFloorNumber() - elevator.getFloor().getFloorNumber());
+            if (distanceFromPersonToElevator < distanceToClosestElevator) {
+                distanceToClosestElevator = distanceFromPersonToElevator;
+                theClosestElevator = elevator;
+            }
+        }
+        return theClosestElevator;
+    }
+
+
     /**
      * Sends task to the chosen Elevator
      *
@@ -88,23 +116,9 @@ public class Building {
         LinkedList<Elevator> availableElevators = getAvailableElevators(task.getDestinationFloorNumber());
         Elevator theChosenElevator = elevators[0];
         if (availableElevators.size() > 0) {
-            int distanceToClosestElevator = Integer.MAX_VALUE;
-            for (Elevator elevator : availableElevators) {
-                int distanceFromPersonToElevator = Math.abs(task.getDestinationFloorNumber() - elevator.getFloor().getFloorNumber());
-                if (distanceFromPersonToElevator < distanceToClosestElevator) {
-                    distanceToClosestElevator = distanceFromPersonToElevator;
-                    theChosenElevator = elevator;
-                }
-            }
+            theChosenElevator = getClosestElevator(availableElevators, task);
         } else {//if there are no available elevators
-            int smallestNumberOfTasks = Integer.MAX_VALUE;
-            for (Elevator elevator: elevators) {
-                int numberOfTasks = elevator.getNumberOfTasks();
-                if(numberOfTasks < smallestNumberOfTasks) {
-                    smallestNumberOfTasks = numberOfTasks;
-                    theChosenElevator = elevator;
-                }
-            }
+            theChosenElevator = getElevatorWithSmallestNumberOfTasks();
         }
         theChosenElevator.addTask(task);
     }
