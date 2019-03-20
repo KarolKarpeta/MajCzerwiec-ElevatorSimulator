@@ -16,12 +16,15 @@ public class Building {
             elevators[i] = new Elevator(floors[0]);
         }
     }
-//kolejowa5na7.getLowerFloor(floor)
-//kolejowa5na7.getHigherFloor(floor)
 
     public Floor getLowerFloor(Floor floor){
         return floors[floor.getFloorNumber()-1];
     }
+
+    public Floor getHigherFloor(Floor floor){
+        return floors[floor.getFloorNumber()+1];
+    }
+
 
     private void sendElevator(Floor destination, Elevator elevator) {
         //budynek daje polecenie windzie, że ma jechać na dane piętro
