@@ -42,7 +42,7 @@ public class Building {
 
         Person person = new Person(destinationFloor);
         floors[currentFloor].addPerson(person);
-        View.personCreationMessage(currentFloor, destinationFloor);
+
     }
 
     public static void main(String[] args) {

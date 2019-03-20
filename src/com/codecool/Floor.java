@@ -27,9 +27,22 @@ public class Floor {
         } else {
             downQueue.add(person);
         }
+        View.personCreationMessage(this.getFloorNumber(), person.getDestinationFloor());
+        View.showFloorStatus(this);
     }
+
+    public List<Person> getUpQueue(){
+        return upQueue;
+    }
+
+    public List<Person> getDownQueue() {
+        return downQueue;
+    }
+
 
     public Floor(int floorNumber) {
         this.floorNumber = floorNumber;
     }
+
+
 }
