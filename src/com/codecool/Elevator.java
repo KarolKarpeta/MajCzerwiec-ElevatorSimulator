@@ -4,17 +4,39 @@ import java.util.PriorityQueue;
 import java.util.List;
 import java.util.LinkedList;
 
+//TODO czy Elevator ma implementować Runnable?
 
-public class Elevator {
+
+
+public class Elevator implements Runnable{
     private LinkedList<Person> people = new LinkedList<>();
     private static final int CAPACITY = 3;
-
-    public LinkedList<Task> getTasks() {
-        return tasks;
-    }
-
     private LinkedList<Task> tasks = new LinkedList<>();
     private Floor floor;
+
+    @Override
+    public void run(){
+        while(true){
+            if(getNumberOfTasks() > 0){
+                this.handleTask();
+            }else{
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+
+    private void handleTask(){
+        System.out.println("handle task");
+    }
+
+    LinkedList<Task> getTasks() {
+        return tasks;
+    }
 
     public void moveUp(Floor floor) {
     }
