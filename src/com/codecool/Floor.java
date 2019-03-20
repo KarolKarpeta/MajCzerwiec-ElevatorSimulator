@@ -27,11 +27,12 @@ public class Floor {
         } else {
             downQueue.add(person);
         }
-        Task newTask = new Task(startFloorNumber = floorNumber, destinationFloorNumber = person.getDestinationFloor());
-        sendTaskToBuilding(newTask);
+        Task newTask = new Task(floorNumber, person.getDestinationFloor());
+        Building.getBuilding().handleTask(newTask);
         View.personCreationMessage(this.getFloorNumber(), person.getDestinationFloor());
         View.showFloorStatus(this);
     }
+
 
     public List<Person> getUpQueue(){
         return upQueue;

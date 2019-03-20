@@ -66,4 +66,8 @@ public class Building {
         System.out.println("Coś");
     }
 
+    public void handleTask(Task task){
+
+    }
+
 }
