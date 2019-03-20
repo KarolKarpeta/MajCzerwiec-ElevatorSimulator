@@ -1,9 +1,13 @@
 package com.codecool;
 
+import java.util.PriorityQueue;
+import java.util.LinkedList;
+
+
 public class Elevator {
-    private java.util.LinkedList<Person> people;
+    private LinkedList<Person> people;
     private static final int CAPACITY = 3;
-    private java.util.PriorityQueue<Floor> tasks;
+    private PriorityQueue<Task> tasks;
     private Floor floor;
 
 
@@ -62,4 +66,9 @@ public class Elevator {
     public Elevator(Floor floor) {
         this.floor = floor;
     }
+
+    public void addTask(Task task){
+        tasks.add(task);
+    }
+
 }
