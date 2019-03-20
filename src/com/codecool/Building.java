@@ -1,7 +1,6 @@
 package com.codecool;
 
 import java.util.Random;
-import java.util.LinkedList;
 
 public class Building {
     private final Floor[] floors;
@@ -63,11 +62,9 @@ public class Building {
 
     public static void main(String[] args) {
         Building kolejowa5na7 = createBuilding(8, 1);
-        kolejowa5na7.generatePerson();
-        System.out.println(getBuilding());
         SpawnPeople spawnPeople = new SpawnPeople();
         (new Thread(spawnPeople)).start();
-
+        System.out.println("Coś");
     }
 
 }
