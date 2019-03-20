@@ -66,8 +66,17 @@ public class Building {
         System.out.println("Coś");
     }
 
+    /**
+     * Sends task to the chosen Elevator
+     * @param task
+     */
     public void handleTask(Task task){
-
+        //wybieramy windę
+        //weż dostępne windy
+            //spośród dostępnych wind weź tę, która jest najbliżej
+        //jak nie ma dostępnych wind:
+            //weź windę, która ma najmniej tasków
+        //wybrana winda otrzymuje Task
     }
 
 }
