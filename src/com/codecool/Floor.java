@@ -21,7 +21,7 @@ public class Floor {
      * Appends Person to upQueue  or DownQueue
      * @param person already created Person object to add to the Floor
      */
-    public void addPerson(Person person) {
+    public void addPersonToRelevantQueue(Person person) {
         if(person.getDestinationFloor() > this.floorNumber) {
             upQueue.add(person);
         } else {

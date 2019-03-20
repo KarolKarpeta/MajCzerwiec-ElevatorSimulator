@@ -55,7 +55,7 @@ public class Building {
         }
 
         Person person = new Person(destinationFloor);
-        floors[currentFloor].addPerson(person);
+        floors[currentFloor].addPersonToRelevantQueue(person);
 
     }
 
