@@ -114,7 +114,7 @@ public class Building {
         //wybieramy windę
         //weż dostępne windy DONE
         LinkedList<Elevator> availableElevators = getAvailableElevators(task.getDestinationFloorNumber());
-        Elevator theChosenElevator = elevators[0];
+        Elevator theChosenElevator;
         if (availableElevators.size() > 0) {
             theChosenElevator = getClosestElevator(availableElevators, task);
         } else {//if there are no available elevators
