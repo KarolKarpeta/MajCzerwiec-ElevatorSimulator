@@ -62,4 +62,8 @@ public class Elevator {
     public Elevator(Floor floor) {
         this.floor = floor;
     }
+
+    public Floor getFloor() {
+        return floor;
+    }
 }

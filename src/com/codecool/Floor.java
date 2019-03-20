@@ -12,7 +12,6 @@ public class Floor {
         return floorNumber;
     }
 
-
     public void summonElevator() {
         //floor mówi budynkowi, że chce windę, bo ma ludzi jadących na dół i/lub górę
     }
