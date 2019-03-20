@@ -7,7 +7,7 @@ import java.util.LinkedList;
 public class Elevator {
     private LinkedList<Person> people;
     private static final int CAPACITY = 3;
-    private java.util.PriorityQueue<Floor> tasks;
+    private PriorityQueue<Task> tasks;
     private Floor floor;
 
 

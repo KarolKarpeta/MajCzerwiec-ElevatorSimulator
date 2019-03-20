@@ -90,7 +90,6 @@ public class Building {
         return leastBusy;
     }
 
-
     private Elevator getClosestElevator(LinkedList<Elevator> availableElevators, Task task) {
         int distanceToClosestElevator = Integer.MAX_VALUE;
         Elevator theClosestElevator = availableElevators.get(0);
@@ -104,12 +103,6 @@ public class Building {
         return theClosestElevator;
     }
 
-
-    /**
-     * Sends task to the chosen Elevator
-     *
-     * @param task
-     */
     public void handleTask(Task task) {
         //wybieramy windę
         //weż dostępne windy DONE
