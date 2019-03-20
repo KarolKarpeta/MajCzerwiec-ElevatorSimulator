@@ -71,4 +71,8 @@ public class Elevator {
         tasks.add(task);
     }
 
+    public Floor getFloor() {
+        return floor;
+    }
+
 }
