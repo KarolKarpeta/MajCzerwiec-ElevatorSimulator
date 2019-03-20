@@ -26,7 +26,7 @@ public class Floor {
         } else {
             downQueue.add(person);
         }
-        Task newTask = new Task(floorNumber, person.getDestinationFloor());
+        Task newTask = new Task(floorNumber, true);
         Building.getBuilding().handleTask(newTask);
         View.personCreationMessage(this.getFloorNumber(), person.getDestinationFloor());
         View.showFloorStatus(this);

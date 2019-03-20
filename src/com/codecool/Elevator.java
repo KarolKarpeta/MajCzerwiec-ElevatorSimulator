@@ -1,9 +1,11 @@
 package com.codecool;
 
 import java.util.PriorityQueue;
+import java.util.LinkedList;
+
 
 public class Elevator {
-    private java.util.LinkedList<Person> people;
+    private LinkedList<Person> people;
     private static final int CAPACITY = 3;
     private java.util.PriorityQueue<Floor> tasks;
     private Floor floor;
@@ -41,7 +43,7 @@ public class Elevator {
     private Direction getCurrentDirection() {
         int currentFloorNumber = this.floor.getFloorNumber();
         if (tasks.peek() != null) {
-            int nextFloorNumber = tasks.peek().getFloorNumber();
+            int nextFloorNumber = tasks.peek().getDestinationFloorNumber();
             if (nextFloorNumber < currentFloorNumber) {
                 return Direction.GOING_DOWN;
             } else if (nextFloorNumber > currentFloorNumber) {
@@ -63,6 +65,10 @@ public class Elevator {
 
     public Elevator(Floor floor) {
         this.floor = floor;
+    }
+
+    public void addTask(Task task){
+        tasks.add(task);
     }
 
     public Floor getFloor() {

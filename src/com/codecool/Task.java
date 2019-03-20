@@ -2,18 +2,16 @@ package com.codecool;
 
 public class Task {
     private int destinationFloorNumber;
-    private int startFloorNumber;
+    private boolean load;
 
-    public Task(int startFloorNumber, int destinationFloorNumber){
-        this.startFloorNumber = startFloorNumber;
+
+    public Task(int destinationFloorNumber, boolean load){
         this.destinationFloorNumber = destinationFloorNumber;
+        this.load = load;
     }
 
     public int getDestinationFloorNumber() {
         return destinationFloorNumber;
     }
 
-    public int getStartFloorNumber() {
-        return startFloorNumber;
-    }
 }

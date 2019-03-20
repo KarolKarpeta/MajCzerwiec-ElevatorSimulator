@@ -86,6 +86,7 @@ public class Building {
         //wybieramy windę
         //weż dostępne windy DONE
         LinkedList<Elevator> availableElevators = getAvailableElevators(task.getDestinationFloorNumber());
+        Elevator theChosenElevator;
         if (availableElevators.size() > 0) {
             int distanceToClosestElevator = Integer.MAX_VALUE;
 
@@ -97,7 +98,6 @@ public class Building {
                     //znajdź odpowiednią windę!!!!!
                 }
             }
-
             //spośród dostępnych wind weź tę, która jest najbliżej
 
         } else {//jak nie ma dostępnych wind:
@@ -117,6 +117,7 @@ public class Building {
         }
 
         //wybrana winda otrzymuje Task
+        theChosenElevator.addTask(task);
     }
 
 }
