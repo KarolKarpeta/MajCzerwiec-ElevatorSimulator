@@ -1,5 +1,6 @@
 package com.codecool;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -67,8 +68,14 @@ public class Building {
         System.out.println("Coś");
     }
 
-    private LinkedList<Elevator> getAvailableElevators(){
-
+    private LinkedList<Elevator> getAvailableElevators(int destinationFloorNumber){
+        LinkedList<Elevator> availableElevators = new LinkedList<>();
+        for (Elevator elevator : elevators) {
+            if (elevator.isAvailable(destinationFloorNumber)) {
+                availableElevators.add(elevator);
+            }
+        }
+        return availableElevators;
     }
 
 
@@ -79,8 +86,8 @@ public class Building {
     public void handleTask(Task task){
         //wybieramy windę
         //weż dostępne windy
-        LinkedList<Elevator> availablElevators = getAvailableElevators();
-        if(availablElevators.size() > 0){
+        LinkedList<Elevator> availableElevators = getAvailableElevators(task.getDestinationFloorNumber());
+        if(availableElevators.size() > 0){
             //spośród dostępnych wind weź tę, która jest najbliżej
         }else{//jak nie ma dostępnych wind:
             //weź windę, która ma najmniej tasków

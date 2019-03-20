@@ -1,6 +1,10 @@
 package com.codecool;
 
 public class Task {
+    public int getDestinationFloorNumber() {
+        return destinationFloorNumber;
+    }
+
     int destinationFloorNumber;
     int startFloorNumber;
 

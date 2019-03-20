@@ -53,8 +53,8 @@ public class Elevator {
 
     }
 
-    public boolean isAvailable(Floor destinationFloor) {
-        Direction newTaskDirection = getNewTaskDirection(destinationFloor.getFloorNumber());
+    public boolean isAvailable(int destinationFloorNumber) {
+        Direction newTaskDirection = getNewTaskDirection(destinationFloorNumber);
         return (people.size() < CAPACITY && this.getCurrentDirection() == newTaskDirection)
                 || tasks.isEmpty();
     }
