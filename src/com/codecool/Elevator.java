@@ -1,5 +1,7 @@
 package com.codecool;
 
+import java.util.PriorityQueue;
+
 public class Elevator {
     private java.util.LinkedList<Person> people;
     private static final int CAPACITY = 3;
@@ -65,5 +67,9 @@ public class Elevator {
 
     public Floor getFloor() {
         return floor;
+    }
+
+    public int getNumberOfTasks() {
+        return tasks.size();
     }
 }

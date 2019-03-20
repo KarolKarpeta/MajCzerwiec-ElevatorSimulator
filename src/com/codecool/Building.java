@@ -84,7 +84,7 @@ public class Building {
      */
     public void handleTask(Task task) {
         //wybieramy windę
-        //weż dostępne windy
+        //weż dostępne windy DONE
         LinkedList<Elevator> availableElevators = getAvailableElevators(task.getDestinationFloorNumber());
         if (availableElevators.size() > 0) {
             int distanceToClosestElevator = Integer.MAX_VALUE;
@@ -94,13 +94,28 @@ public class Building {
 
                 if (distanceFromPersonToElevator < distanceToClosestElevator) {
                     distanceToClosestElevator = distanceFromPersonToElevator;
+                    //znajdź odpowiednią windę!!!!!
                 }
             }
 
             //spośród dostępnych wind weź tę, która jest najbliżej
+
         } else {//jak nie ma dostępnych wind:
+            int smallestNumberOfTasks = Integer.MAX_VALUE;
+
+            for (Elevator elevator: elevators) {
+                int numberOfTasks = elevator.getNumberOfTasks();
+
+                if(numberOfTasks < smallestNumberOfTasks) {
+                    smallestNumberOfTasks = numberOfTasks;
+                    //znajdź odpowiednią windę!!!!!
+                }
+            }
+
+
             //weź windę, która ma najmniej tasków
         }
+
         //wybrana winda otrzymuje Task
     }
 
