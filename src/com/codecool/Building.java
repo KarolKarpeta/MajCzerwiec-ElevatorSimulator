@@ -68,7 +68,7 @@ public class Building {
     }
 
     private LinkedList<Elevator> getAvailableElevators(){
-
+        System.out.println("Dupa");
     }
 
 
