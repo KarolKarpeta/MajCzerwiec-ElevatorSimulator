@@ -1,7 +1,5 @@
 package com.codecool;
 
-import java.util.Random;
-
 public class Building {
     private final Floor[] floors;
     private final Elevator[] elevators;
@@ -17,12 +15,12 @@ public class Building {
         }
     }
 
-    public Floor getLowerFloor(Floor floor){
-        return floors[floor.getFloorNumber()-1];
+    public Floor getLowerFloor(Floor floor) {
+        return floors[floor.getFloorNumber() - 1];
     }
 
-    public Floor getHigherFloor(Floor floor){
-        return floors[floor.getFloorNumber()+1];
+    public Floor getHigherFloor(Floor floor) {
+        return floors[floor.getFloorNumber() + 1];
     }
 
 
@@ -30,25 +28,9 @@ public class Building {
         //budynek daje polecenie windzie, że ma jechać na dane piętro
     }
 
-    public void generatePerson() {
-        Random randomNumber = new Random();
-
-        int currentFloor = randomNumber.nextInt(floors.length);
-        int destinationFloor = currentFloor;
-
-        while (destinationFloor == currentFloor) {
-            destinationFloor = randomNumber.nextInt(floors.length);
-        }
-
-        Person person = new Person(destinationFloor);
-        floors[currentFloor].addPerson(person);
-
-    }
-
     public static void main(String[] args) {
         Building kolejowa5na7 = new Building(8, 1);
-        kolejowa5na7.generatePerson();
-
+        //odpal wątek!!!!!!kolejowa5na7.generatePerson();
 
 
     }
