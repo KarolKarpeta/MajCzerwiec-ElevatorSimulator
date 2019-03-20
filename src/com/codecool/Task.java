@@ -5,11 +5,11 @@ public class Task {
         return destinationFloorNumber;
     }
 
-    int destinationFloorNumber;
-    int startFloorNumber;
+    private int destinationFloorNumber;
+    private boolean load;
 
-    public Task(int startFloorNumber, int destinationFloorNumber){
-        this.startFloorNumber = startFloorNumber;
+    public Task(int destinationFloorNumber, boolean load){
         this.destinationFloorNumber = destinationFloorNumber;
+        this.load = load;
     }
 }
