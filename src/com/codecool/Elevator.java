@@ -26,7 +26,7 @@ public class Elevator {
     public void loadPeople() {
     }
 
-    private int newTaskDirection(int destinationFloorNumber) {
+    private int getNewTaskDirection(int destinationFloorNumber) {
         int currentFloorNumber = this.floor.getFloorNumber();
         if (destinationFloorNumber < currentFloorNumber) {
             return GOING_DOWN;
@@ -37,7 +37,7 @@ public class Elevator {
         }
     }
 
-    private int currentDirection() {
+    private int getCurrentDirection() {
         int currentFloorNumber = this.floor.getFloorNumber();
         if (tasks.peek() != null) {
             int nextFloorNumber = tasks.peek().getFloorNumber();
@@ -55,8 +55,8 @@ public class Elevator {
     }
 
     public boolean isAvailable(Floor destinationFloor) {
-        int newTaskDirection = newTaskDirection(destinationFloor.getFloorNumber());
-        return (people.size() < CAPACITY && this.currentDirection() == newTaskDirection)
+        int newTaskDirection = getNewTaskDirection(destinationFloor.getFloorNumber());
+        return (people.size() < CAPACITY && this.getCurrentDirection() == newTaskDirection)
                 || tasks.isEmpty();
     }
 
