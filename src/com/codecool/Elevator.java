@@ -10,14 +10,7 @@ public class Elevator {
     private PriorityQueue<Task> tasks;
     private Floor floor;
 
-
-
-    //bierze piętro z PriorityQueue i wyładowuje i ładuje ludzi,
-    //a jak masz pusta kolejke to stoi gdzie stała
-    //jak ma pełne capacity to
-
     public void moveUp(Floor floor) {
-
     }
 
     public void moveDown(Floor floor) {

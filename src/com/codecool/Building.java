@@ -64,7 +64,6 @@ public class Building {
         Building kolejowa5na7 = createBuilding(8, 1);
         SpawnPeople spawnPeople = new SpawnPeople();
         (new Thread(spawnPeople)).start();
-        System.out.println("Coś");
     }
 
     private LinkedList<Elevator> getAvailableElevators(int destinationFloorNumber) {
@@ -104,13 +103,11 @@ public class Building {
     }
 
     public void handleTask(Task task) {
-        //wybieramy windę
-        //weż dostępne windy DONE
         LinkedList<Elevator> availableElevators = getAvailableElevators(task.getDestinationFloorNumber());
         Elevator theChosenElevator;
         if (availableElevators.size() > 0) {
             theChosenElevator = getClosestElevator(availableElevators, task);
-        } else {//if there are no available elevators
+        } else {
             theChosenElevator = getElevatorWithSmallestNumberOfTasks();
         }
         theChosenElevator.addTask(task);

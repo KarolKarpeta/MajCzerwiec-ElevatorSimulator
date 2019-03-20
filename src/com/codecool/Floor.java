@@ -12,10 +12,6 @@ public class Floor {
         return floorNumber;
     }
 
-    public void summonElevator() {
-        //floor mówi budynkowi, że chce windę, bo ma ludzi jadących na dół i/lub górę
-    }
-
     /**
      * Appends Person to upQueue  or DownQueue
      * @param person already created Person object to add to the Floor
@@ -40,7 +36,6 @@ public class Floor {
     public List<Person> getDownQueue() {
         return downQueue;
     }
-
 
     public Floor(int floorNumber) {
         this.floorNumber = floorNumber;
