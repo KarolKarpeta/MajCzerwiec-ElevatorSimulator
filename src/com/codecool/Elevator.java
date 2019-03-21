@@ -1,7 +1,5 @@
 package com.codecool;
 
-import java.util.PriorityQueue;
-import java.util.List;
 import java.util.LinkedList;
 
 public class Elevator implements Runnable {
@@ -10,6 +8,10 @@ public class Elevator implements Runnable {
     private LinkedList<Task> tasks = new LinkedList<>();
     private Floor floor;
     private String name;
+
+    public String getName() {
+        return name;
+    }
 
     @Override
     public void run() {
@@ -30,11 +32,11 @@ public class Elevator implements Runnable {
     private void handleTask() {
         Task currentTask = getCurrentTask();//winda tylko patrzy, jaki ma task na 1. priorytecie
         //TODO: moveOneStep zajmuje 1000ms tylko jeśli winda się porusza
-        moveOneStep(currentTask);//TODO wywołuje moveUp albo moveDown albo nic nie wywołuje (jak winda stoi)
+        moveOneStep(currentTask);//TODO wywołuje moveStepUp albo moveDown albo nic nie wywołuje (jak winda stoi)
         unloadPeople();
-        removeCompletedTasks();//TODO usuwa wykonane taski
+        //removeCompletedTasks();//TODO usuwa wykonane taski
         loadPeople();//while loading people, elevator gets tasks from them
-        getTasksFromPeople();//TODO bierze taski od ludzi i daje je Budynkowi do handlowania (handluj z tym)
+        //getTasksFromPeople();//TODO bierze taski od ludzi i daje je Budynkowi do handlowania (handluj z tym)
         System.out.println(this.name + " handle task");
     }
 
@@ -51,13 +53,18 @@ public class Elevator implements Runnable {
     }
 
     private void moveOneStep(Task task){
-
+        Direction current = getCurrentDirection();
+        if(current == Direction.GOING_UP){
+            moveStepUp();
+        }else if(current == Direction.GOING_DOWN){
+            moveStepDown();
+        }
     }
 
-    private void moveUp(Floor floor) {
+    private void moveStepUp() {
     }
 
-    private void moveDown(Floor floor) {
+    private void moveStepDown() {
     }
 
     public void unloadPeople() {

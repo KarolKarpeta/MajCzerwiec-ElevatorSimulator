@@ -11,7 +11,7 @@ public class View {
     }
 
     public static void showElevator(Elevator elevator){
-        System.out.println("Elevator:"+elevator);
+        System.out.println("Elevator:"+elevator.getName());
         System.out.println("At floor: "+elevator.getFloor().getFloorNumber());
         System.out.print("Tasks:");
         for(Task task : elevator.getTasks()){
