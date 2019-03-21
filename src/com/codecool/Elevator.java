@@ -36,6 +36,10 @@ public class Elevator implements Runnable{
     }
 
     private void handleTask(){
+        //pojedź na piętro wskazane w tasku
+        //wyładuj ludzi, których da się wyładować
+        //załaduj ludzi, których da się załadować
+        //usuń task
         System.out.println("handle task");
     }
 
