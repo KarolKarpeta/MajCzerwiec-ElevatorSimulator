@@ -50,7 +50,7 @@ public class Elevator implements Runnable {
         return tasks;
     }
 
-    private moveOneStep(Task task){
+    private void moveOneStep(Task task){
 
     }
 
