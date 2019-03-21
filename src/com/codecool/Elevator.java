@@ -4,10 +4,7 @@ import java.util.PriorityQueue;
 import java.util.List;
 import java.util.LinkedList;
 
-
-
-
-public class Elevator implements Runnable{
+public class Elevator implements Runnable {
     private LinkedList<Person> people = new LinkedList<>();
     private static final int CAPACITY = 3;
     private LinkedList<Task> tasks = new LinkedList<>();
@@ -15,36 +12,36 @@ public class Elevator implements Runnable{
     private String name;
 
     @Override
-    public void run(){
+    public void run() {
 
-        while(true){//TODO dac tu zmienną/metodę, że jak wpisze q + [ENTER] to programIsRunnng zmienia sie na false
-            if(getNumberOfTasks() > 0){
+        while (true) {//TODO dac tu zmienną/metodę, że jak wpisze q + [ENTER] to programIsRunnng zmienia sie na false
+            if (getNumberOfTasks() > 0) {
                 this.handleTask();
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }else{
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
             }
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
         }
 
     }
 
-    private void handleTask(){
-        Task currentTask = getTask();//it also removes Task from list
+    private void handleTask() {
+        Task currentTask = popTask();//it also removes Task from list
         this.goToFloor(currentTask.getDestinationFloorNumber());
-        if(currentTask.hasToLoad()){
+        if (currentTask.hasToLoad()) {
             this.loadPeople();//while loading people, elevator gets tasks from them
-        }else{
+        } else {
             this.unloadPeople();
         }
-        System.out.println(this.name+" handle task");
+        System.out.println(this.name + " handle task");
+    }
+
+
+    private Task popTask() {
+        return this.tasks.remove();
     }
 
     LinkedList<Task> getTasks() {
@@ -99,10 +96,10 @@ public class Elevator implements Runnable{
 
     Elevator(Floor floor, int elevatorNumber) {
         this.floor = floor;
-        this.name = "Winda"+elevatorNumber;
+        this.name = "Winda" + elevatorNumber;
     }
 
-    void addTask(Task task){
+    void addTask(Task task) {
         tasks.add(task);
     }
 
