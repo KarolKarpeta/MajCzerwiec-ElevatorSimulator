@@ -97,7 +97,7 @@ public class Building {
         return theClosestElevator;
     }
 
-    void handleTask(Task task) {
+    void assignTask(Task task) {
         LinkedList<Elevator> availableElevators = getAvailableElevators(task.getDestinationFloorNumber());
         Elevator theChosenElevator;
         if (availableElevators.size() > 0) {

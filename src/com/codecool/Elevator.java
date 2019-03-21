@@ -16,7 +16,8 @@ public class Elevator implements Runnable{
 
     @Override
     public void run(){
-        while(true){
+
+        while(true){//TODO dac tu zmienną/metodę, że jak wpisze q + [ENTER] to programIsRunnng zmienia sie na false
             if(getNumberOfTasks() > 0){
                 this.handleTask();
                 try {
@@ -36,10 +37,13 @@ public class Elevator implements Runnable{
     }
 
     private void handleTask(){
-        //pojedź na piętro wskazane w tasku
-        //wyładuj ludzi, których da się wyładować
-        //załaduj ludzi, których da się załadować
-        //usuń task
+        Task currentTask = getTask();//it also removes Task from list
+        this.goToFloor(currentTask.getDestinationFloorNumber());
+        if(currentTask.hasToLoad()){
+            this.loadPeople();//while loading people, elevator gets tasks from them
+        }else{
+            this.unloadPeople();
+        }
         System.out.println(this.name+" handle task");
     }
 

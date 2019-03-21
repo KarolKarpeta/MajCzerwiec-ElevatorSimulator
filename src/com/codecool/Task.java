@@ -4,15 +4,15 @@ public class Task {
     private int destinationFloorNumber;
 
     public boolean hasToLoad() {
-        return load;
+        return loadPerson;
     }
 
-    private boolean load;
+    private boolean loadPerson;
 
 
-    public Task(int destinationFloorNumber, boolean load){
+    public Task(int destinationFloorNumber, boolean loadPerson){
         this.destinationFloorNumber = destinationFloorNumber;
-        this.load = load;
+        this.loadPerson = loadPerson;
     }
 
     public int getDestinationFloorNumber() {
