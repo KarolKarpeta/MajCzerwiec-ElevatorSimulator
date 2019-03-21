@@ -23,35 +23,41 @@ public class Elevator implements Runnable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
         }
 
     }
 
     private void handleTask() {
-        Task currentTask = popTask();//it also removes Task from list
-        this.goToFloor(currentTask.getDestinationFloorNumber());
-        if (currentTask.hasToLoad()) {
-            this.loadPeople();//while loading people, elevator gets tasks from them
-        } else {
-            this.unloadPeople();
-        }
+        Task currentTask = getCurrentTask();//winda tylko patrzy, jaki ma task na 1. priorytecie
+        //TODO: moveOneStep zajmuje 1000ms tylko jeśli winda się porusza
+        moveOneStep(currentTask);//TODO wywołuje moveUp albo moveDown albo nic nie wywołuje (jak winda stoi)
+        unloadPeople();
+        removeCompletedTasks();//TODO usuwa wykonane taski
+        loadPeople();//while loading people, elevator gets tasks from them
+        getTasksFromPeople();//TODO bierze taski od ludzi i daje je Budynkowi do handlowania (handluj z tym)
         System.out.println(this.name + " handle task");
     }
 
 
-    private Task popTask() {
-        return this.tasks.remove();
+
+    private Task getCurrentTask() {
+        //TODO jeśli jest pełna, to bierze pierwszy task poleający na wyładowaniu
+        //bo teraz tylko bierze pierwszyst task z brzegu i nie patrzy co bierze
+        return this.tasks.peek();
     }
 
     LinkedList<Task> getTasks() {
         return tasks;
     }
 
-    public void moveUp(Floor floor) {
+    private moveOneStep(Task task){
+
     }
 
-    public void moveDown(Floor floor) {
+    private void moveUp(Floor floor) {
+    }
+
+    private void moveDown(Floor floor) {
     }
 
     public void unloadPeople() {
