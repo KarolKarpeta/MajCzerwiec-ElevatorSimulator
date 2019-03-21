@@ -19,6 +19,11 @@ public class Elevator implements Runnable{
         while(true){
             if(getNumberOfTasks() > 0){
                 this.handleTask();
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }else{
                 try {
                     Thread.sleep(1000);
@@ -75,7 +80,6 @@ public class Elevator implements Runnable{
         } else {
             return Direction.WAITING;
         }
-
     }
 
     boolean isAvailable(int destinationFloorNumber) {
