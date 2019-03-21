@@ -8,8 +8,9 @@ public class Elevator implements Runnable {
     private LinkedList<Task> tasks = new LinkedList<>();
     private Floor floor;
     private String name;
+    private static final int SPEED = 1000;
 
-    public String getName() {
+    String getName() {
         return name;
     }
 
@@ -62,9 +63,21 @@ public class Elevator implements Runnable {
     }
 
     private void moveStepUp() {
+            try {
+                Thread.sleep(SPEED);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        this.floor = Building.getBuilding().getHigherFloor(this.floor);
     }
 
     private void moveStepDown() {
+        try {
+            Thread.sleep(SPEED);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.floor = Building.getBuilding().getLowerFloor(this.floor);
     }
 
     public void unloadPeople() {

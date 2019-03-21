@@ -110,7 +110,7 @@ public class Building {
     }
 
     public static void main(String[] args) {
-        Building kolejowa5na7 = createBuilding(8, 1);
+        Building kolejowa5na7 = createBuilding(8, 2);
         SpawnPeople spawnPeople = new SpawnPeople();
         (new Thread(spawnPeople)).start();
     }

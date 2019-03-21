@@ -1,7 +1,7 @@
 package com.codecool;
 
 public class SpawnPeople implements Runnable {
-    private static final int NUMBER_OF_PEOPLE_TO_CREATE = 3;
+    private static final int NUMBER_OF_PEOPLE_TO_CREATE = 7;
     @Override
     public void run() {
         Building kolejowa = Building.getBuilding();
