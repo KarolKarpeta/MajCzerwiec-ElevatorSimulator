@@ -29,7 +29,7 @@ public class Building {
         }
         elevators = new Elevator[nrOfElevators];
         for (int i = 0; i < nrOfElevators; i++) {
-            elevators[i] = new Elevator(floors[0]);
+            elevators[i] = new Elevator(floors[0], i);
             (new Thread(elevators[i])).start();
         }
     }

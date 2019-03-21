@@ -4,7 +4,6 @@ import java.util.PriorityQueue;
 import java.util.List;
 import java.util.LinkedList;
 
-//TODO czy Elevator ma implementować Runnable?
 
 
 
@@ -13,6 +12,7 @@ public class Elevator implements Runnable{
     private static final int CAPACITY = 3;
     private LinkedList<Task> tasks = new LinkedList<>();
     private Floor floor;
+    private String name;
 
     @Override
     public void run(){
@@ -40,7 +40,7 @@ public class Elevator implements Runnable{
         //wyładuj ludzi, których da się wyładować
         //załaduj ludzi, których da się załadować
         //usuń task
-        System.out.println("handle task");
+        System.out.println(this.name+" handle task");
     }
 
     LinkedList<Task> getTasks() {
@@ -93,8 +93,9 @@ public class Elevator implements Runnable{
                 || tasks.isEmpty();
     }
 
-    Elevator(Floor floor) {
+    Elevator(Floor floor, int elevatorNumber) {
         this.floor = floor;
+        this.name = "Winda"+elevatorNumber;
     }
 
     void addTask(Task task){
