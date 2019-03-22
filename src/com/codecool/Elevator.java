@@ -1,11 +1,13 @@
 package com.codecool;
 
 import java.util.LinkedList;
+import java.util.concurrent.LinkedBlockingQueue;
+
 
 public class Elevator implements Runnable {
     private LinkedList<Person> people = new LinkedList<>();
     private static final int CAPACITY = 3;
-    private LinkedList<Task> tasks = new LinkedList<>();
+    private LinkedBlockingQueue<Task> tasks = new LinkedBlockingQueue<>();
     private Floor floor;
     private String name;
     private static final int SPEED = 100;
@@ -45,7 +47,7 @@ public class Elevator implements Runnable {
         return this.tasks.peek();
     }
 
-    LinkedList<Task> getTasks() {
+    LinkedBlockingQueue<Task> getTasks() {
         return tasks;
     }
 
