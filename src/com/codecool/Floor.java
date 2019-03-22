@@ -36,7 +36,7 @@ public class Floor {
     }
 
     boolean isEmpty(){
-        return upQueue.isEmpty() || downQueue.isEmpty();
+        return upQueue.isEmpty() && downQueue.isEmpty();
     }
 
     /**
@@ -51,7 +51,7 @@ public class Floor {
         }
         Task newTask = new Task(floorNumber, true);
         Building.getBuilding().assignTask(newTask);
-        View.personCreationMessage(this.getFloorNumber(), person.getDestinationFloor());
+        View.personCreationMessage(this.getFloorNumber(), person);
     }
 
 

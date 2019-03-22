@@ -9,6 +9,7 @@ public class Elevator implements Runnable {
     private Floor floor;
     private String name;
     private static final int SPEED = 1000;
+    private boolean programIsRunning = true;
 
     String getName() {
         return name;
@@ -17,7 +18,7 @@ public class Elevator implements Runnable {
     @Override
     public void run() {
 
-        while (true) {//TODO dac tu zmienną/metodę, że jak wpisze q + [ENTER] to programIsRunnng zmienia sie na false
+        while (programIsRunning) {//TODO dac tu zmienną/metodę, że jak wpisze q + [ENTER] to programIsRunning zmienia sie na false
             if (getNumberOfTasks() > 0) {
                 this.handleTask();
             }
@@ -35,7 +36,6 @@ public class Elevator implements Runnable {
         moveOneStep();//TODO wywołuje moveStepUp albo moveDown albo nic nie wywołuje (jak winda stoi)
         unloadPeople();
         loadPeople();
-        System.out.println(this.name + " handle task");
     }
 
     private Task getCurrentTask() {
@@ -127,6 +127,8 @@ public class Elevator implements Runnable {
                 loadPersonFromAnyQueue();
             }
             getTask(people.peekLast());
+
+            View.personLoadMessage(this.getFloor(), this);
         }
     }
 
