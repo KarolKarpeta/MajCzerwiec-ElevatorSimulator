@@ -32,6 +32,8 @@ public class Building {
             elevators[i] = new Elevator(floors[0], i);
             (new Thread(elevators[i])).start();
         }
+
+        View.buildingCreationMessage(nrOfFloors, nrOfElevators);
     }
 
     public Floor getLowerFloor(Floor floor) {
@@ -106,12 +108,12 @@ public class Building {
             theChosenElevator = getElevatorWithSmallestNumberOfTasks();
         }
         theChosenElevator.addTask(task);
-        View.showElevator(theChosenElevator);
+        View.confirmTaskAssignmentToElevator(theChosenElevator, task);
     }
 
     public static void main(String[] args) {
         Building kolejowa5na7 = createBuilding(8, 2);
-        SpawnPeople spawnPeople = new SpawnPeople();
-        (new Thread(spawnPeople)).start();
+        PeopleSpawner peopleSpawner = new PeopleSpawner();
+        (new Thread(peopleSpawner)).start();
     }
 }
