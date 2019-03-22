@@ -122,7 +122,7 @@ public class Elevator implements Runnable {
         //bierz ludzi jeden po drógim, dopóki masz wolne miejsca
         //weź taska od każdego pipola
         Person loadedPerson;
-        while (hasFreeSpace() || !floor.isEmpty()) {
+        while (hasFreeSpace() && !floor.isEmpty()) {
             if (getCurrentDirection() == Direction.GOING_DOWN) {
                 loadedPerson = loadPersonFromDownQueue();
             } else {
