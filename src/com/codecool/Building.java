@@ -42,10 +42,6 @@ public class Building {
         return floors[floor.getFloorNumber() + 1];
     }
 
-    private void sendElevator(Floor destination, Elevator elevator) {
-        //budynek daje polecenie windzie, że ma jechać na dane piętro
-    }
-
     void generatePerson() {
         Random randomNumber = new Random();
 
@@ -111,7 +107,7 @@ public class Building {
 
     public static void main(String[] args) {
         Building kolejowa5na7 = createBuilding(8, 2);
-        SpawnPeople spawnPeople = new SpawnPeople();
-        (new Thread(spawnPeople)).start();
+        peopleSpawner peopleSpawner = new peopleSpawner();
+        (new Thread(peopleSpawner)).start();
     }
 }
