@@ -4,12 +4,23 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Floor {
-    private List<Person> upQueue = new LinkedList<>();
-    private List<Person> downQueue = new LinkedList<>();
+    private LinkedList<Person> upQueue = new LinkedList<>();
+    private LinkedList<Person> downQueue = new LinkedList<>();
     private int floorNumber;
 
     public int getFloorNumber() {
         return floorNumber;
+    }
+
+    public Person popPersonFromDownQueue(){
+        return downQueue.remove();
+    }
+    public Person popPersonFromUpQueue(){
+        return upQueue.remove();
+    }
+
+    boolean isEmpty(){
+        return upQueue.isEmpty() || downQueue.isEmpty();
     }
 
     /**

@@ -13,6 +13,11 @@ public class Task {
         this.loadPerson = loadPerson;
     }
 
+    public Task(Person passenger){
+        this.destinationFloorNumber = passenger.getDestinationFloor();
+        this.loadPerson = false;
+    }
+
     public int getDestinationFloorNumber() {
         return destinationFloorNumber;
     }

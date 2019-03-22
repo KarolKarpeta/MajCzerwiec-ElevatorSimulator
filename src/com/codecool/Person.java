@@ -10,4 +10,5 @@ public class Person {
     public int getDestinationFloor() {
         return destinationFloor;
     }
+
 }

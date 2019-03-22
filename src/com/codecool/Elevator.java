@@ -42,7 +42,6 @@ public class Elevator implements Runnable {
     }
 
 
-
     private Task getCurrentTask() {
         //TODO jeśli jest pełna, to bierze pierwszy task poleający na wyładowaniu
         //bo teraz tylko bierze pierwszyst task z brzegu i nie patrzy co bierze
@@ -53,21 +52,21 @@ public class Elevator implements Runnable {
         return tasks;
     }
 
-    private void moveOneStep(Task task){
+    private void moveOneStep(Task task) {
         Direction current = getCurrentDirection();
-        if(current == Direction.GOING_UP){
+        if (current == Direction.GOING_UP) {
             moveStepUp();
-        }else if(current == Direction.GOING_DOWN){
+        } else if (current == Direction.GOING_DOWN) {
             moveStepDown();
         }
     }
 
     private void moveStepUp() {
-            try {
-                Thread.sleep(SPEED);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        try {
+            Thread.sleep(SPEED);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         this.floor = Building.getBuilding().getHigherFloor(this.floor);
     }
 
@@ -83,7 +82,39 @@ public class Elevator implements Runnable {
     public void unloadPeople() {
     }
 
+
+    private boolean hasFreeSpace() {
+        return people.size() < CAPACITY;
+    }
+
+    private Person loadPersonFromDownQueue() {
+        people.add(floor.popPersonFromDownQueue());
+        return people.peekLast();
+    }
+
+    private Person loadPersonFromUpQueue() {
+        people.add(floor.popPersonFromUpQueue());
+        return people.peekLast();
+    }
+
+    private void getTask(Person newPassenger) {
+        tasks.add(new Task(newPassenger));
+    }
+
     public void loadPeople() {
+        //jeżeli winda jedzie do góry to weź ludzi z kolejki Up
+        //jeżeli winda jedzie na dół to weź ludzi z kolejki Down
+        //bierz ludzi jeden po drógim, dopóki masz wolne miejsca
+        //weź taska od każdego pipola
+        Person loadedPerson;
+        while (hasFreeSpace() || !floor.isEmpty()) {
+            if (getCurrentDirection() == Direction.GOING_DOWN) {
+                loadedPerson = loadPersonFromDownQueue();
+            } else {
+                loadedPerson = loadPersonFromUpQueue();
+            }
+            getTask(loadedPerson);
+        }
     }
 
     private Direction getNewTaskDirection(int destinationFloorNumber) {
