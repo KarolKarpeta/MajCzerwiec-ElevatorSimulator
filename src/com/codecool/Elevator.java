@@ -31,18 +31,16 @@ public class Elevator implements Runnable {
     }
 
     private void handleTask() {
-        Task currentTask = getCurrentTask();//winda tylko patrzy, jaki ma task na 1. priorytecie
         //TODO: moveOneStep zajmuje 1000ms tylko jeśli winda się porusza
-        moveOneStep(currentTask);//TODO wywołuje moveStepUp albo moveDown albo nic nie wywołuje (jak winda stoi)
+        moveOneStep();//TODO wywołuje moveStepUp albo moveDown albo nic nie wywołuje (jak winda stoi)
         unloadPeople();
-        loadPeople();//while loading people, elevator gets tasks from them
-        //getTasksFromPeople();//TODO bierze taski od ludzi i daje je Budynkowi do handlowania (handluj z tym)
+        loadPeople();
         System.out.println(this.name + " handle task");
     }
 
     private Task getCurrentTask() {
-        //TODO jeśli jest pełna, to bierze pierwszy task poleający na wyładowaniu
-        //bo teraz tylko bierze pierwszyst task z brzegu i nie patrzy co bierze
+        //TODO jeśli jest pełna, to bierze pierwszy task polegający na wyładowaniu
+        //bo teraz tylko bierze pierwszys task z brzegu i nie patrzy co bierze
         return this.tasks.peek();
     }
 
@@ -50,7 +48,7 @@ public class Elevator implements Runnable {
         return tasks;
     }
 
-    private void moveOneStep(Task task) {
+    private void moveOneStep() {
         Direction current = getCurrentDirection();
         if (current == Direction.GOING_UP) {
             moveStepUp();
