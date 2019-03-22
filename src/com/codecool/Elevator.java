@@ -35,7 +35,6 @@ public class Elevator implements Runnable {
         moveOneStep();//TODO wywołuje moveStepUp albo moveDown albo nic nie wywołuje (jak winda stoi)
         unloadPeople();
         loadPeople();
-        System.out.println(this.name + " handle task");
     }
 
     private Task getCurrentTask() {
@@ -158,7 +157,6 @@ public class Elevator implements Runnable {
 
     boolean isAvailable(int destinationFloorNumber) {
         Direction newTaskDirection = getNewTaskDirection(destinationFloorNumber);
-        System.out.println(people);
         return (people.size() < CAPACITY && this.getCurrentDirection() == newTaskDirection)
                 || tasks.isEmpty();
     }
