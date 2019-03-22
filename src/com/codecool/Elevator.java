@@ -102,14 +102,16 @@ public class Elevator implements Runnable {
         return people.size() < CAPACITY;
     }
 
-    private Person loadPersonFromDownQueue() {
+    private void loadPersonFromDownQueue() {
         people.add(floor.popPersonFromDownQueue());
-        return people.peekLast();
     }
 
-    private Person loadPersonFromUpQueue() {
+    private void loadPersonFromUpQueue() {
         people.add(floor.popPersonFromUpQueue());
-        return people.peekLast();
+    }
+
+    private void loadPersonFromAnyQueue() {
+        people.add(floor.popPersonFromAnyQueue());
     }
 
     private void getTask(Person newPassenger) {
@@ -117,18 +119,15 @@ public class Elevator implements Runnable {
     }
 
     public void loadPeople() {
-        //jeżeli winda jedzie do góry to weź ludzi z kolejki Up
-        //jeżeli winda jedzie na dół to weź ludzi z kolejki Down
-        //bierz ludzi jeden po drógim, dopóki masz wolne miejsca
-        //weź taska od każdego pipola
-        Person loadedPerson;
         while (hasFreeSpace() && !floor.isEmpty()) {
             if (getCurrentDirection() == Direction.GOING_DOWN) {
-                loadedPerson = loadPersonFromDownQueue();
-            } else {
-                loadedPerson = loadPersonFromUpQueue();
+                loadPersonFromDownQueue();
+            } else if(getCurrentDirection() == Direction.GOING_UP){
+                loadPersonFromUpQueue();
+            }else{
+                loadPersonFromAnyQueue();
             }
-            getTask(loadedPerson);
+            getTask(people.peekLast());
         }
     }
 

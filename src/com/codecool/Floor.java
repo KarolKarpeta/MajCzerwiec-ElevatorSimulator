@@ -27,6 +27,14 @@ public class Floor {
         return upQueue.remove();
     }
 
+    public Person popPersonFromAnyQueue(){
+        if(!upQueue.isEmpty()){
+            return upQueue.remove();
+        }else{
+            return downQueue.remove();
+        }
+    }
+
     boolean isEmpty(){
         return upQueue.isEmpty() || downQueue.isEmpty();
     }
