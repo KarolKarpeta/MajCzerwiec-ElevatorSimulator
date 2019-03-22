@@ -44,10 +44,6 @@ public class Building {
         return floors[floor.getFloorNumber() + 1];
     }
 
-    private void sendElevator(Floor destination, Elevator elevator) {
-        //budynek daje polecenie windzie, że ma jechać na dane piętro
-    }
-
     void generatePerson() {
         Random randomNumber = new Random();
 

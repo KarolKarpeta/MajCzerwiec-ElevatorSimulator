@@ -11,9 +11,18 @@ public class View {
     }
 
     public static void confirmTaskAssignmentToElevator(Elevator elevator, Task task){
-        System.out.println("Elevator:" + elevator.getName() + " that is on floor " + elevator.getFloor().getFloorNumber() +
-                ", received a task to go to " + task.getDestinationFloorNumber() +
-                " floor and load/trasport and unload person (true/false): " + task.hasToLoad());
+        if (task.hasToLoad()) {
+        System.out.println("Elevator:" + elevator.getName() + " on floor " + elevator.getFloor().getFloorNumber() +
+                ", task => " + task.getDestinationFloorNumber() +
+                " to take a person.");
+        } else {
+            System.out.println("Elevator:" + elevator.getName() + " loads person on floor " + elevator.getFloor().getFloorNumber() +
+                    "and is to transport a person to " + task.getDestinationFloorNumber() +
+                    " .");
+        }
+    }
 
+    public static void transportedPersonMessage(Person person) {
+        System.out.println("Person successfully transported to floor " + person.getDestinationFloor() + ".");
     }
 }

@@ -81,6 +81,7 @@ public class Elevator implements Runnable {
             if(person.getDestinationFloor() == currentFloor.getFloorNumber()) {
                 people.remove(person);
                 currentFloor.addToTransportedPeople(person);
+                View.transportedPersonMessage(person);
             }
         }
 
@@ -158,7 +159,6 @@ public class Elevator implements Runnable {
 
     boolean isAvailable(int destinationFloorNumber) {
         Direction newTaskDirection = getNewTaskDirection(destinationFloorNumber);
-        System.out.println(people);
         return (people.size() < CAPACITY && this.getCurrentDirection() == newTaskDirection)
                 || tasks.isEmpty();
     }
