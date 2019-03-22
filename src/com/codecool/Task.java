@@ -2,13 +2,11 @@ package com.codecool;
 
 public class Task {
     private int destinationFloorNumber;
+    private boolean loadPerson;
 
     public boolean hasToLoad() {
         return loadPerson;
     }
-
-    private boolean loadPerson;
-
 
     public Task(int destinationFloorNumber, boolean loadPerson){
         this.destinationFloorNumber = destinationFloorNumber;
