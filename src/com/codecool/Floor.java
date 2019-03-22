@@ -20,18 +20,24 @@ public class Floor {
         this.transportedPeople.add(transportedPerson);
     }
 
-    public Person popPersonFromDownQueue(){
-        return downQueue.remove();
+    public Person popPersonFromDownQueue(Elevator elevator){
+        Person poppedOne = downQueue.remove();
+
+        View.personLoadMessage(elevator.getFloor(), elevator, poppedOne);
+        return poppedOne;
     }
-    public Person popPersonFromUpQueue(){
-        return upQueue.remove();
+    public Person popPersonFromUpQueue(Elevator elevator){
+        Person poppedOne = upQueue.remove();
+
+        View.personLoadMessage(elevator.getFloor(), elevator, poppedOne);
+        return poppedOne;
     }
 
-    public Person popPersonFromAnyQueue(){
+    public Person popPersonFromAnyQueue(Elevator elevator){
         if(!upQueue.isEmpty()){
-            return upQueue.remove();
+            return popPersonFromUpQueue(elevator);
         }else{
-            return downQueue.remove();
+            return popPersonFromDownQueue(elevator);
         }
     }
 

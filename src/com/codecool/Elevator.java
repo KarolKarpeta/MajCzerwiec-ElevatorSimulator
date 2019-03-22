@@ -101,16 +101,16 @@ public class Elevator implements Runnable {
         return people.size() < CAPACITY;
     }
 
-    private void loadPersonFromDownQueue() {
-        people.add(floor.popPersonFromDownQueue());
+    private void loadPersonFromDownQueue(Elevator elevator) {
+        people.add(floor.popPersonFromDownQueue(elevator));
     }
 
-    private void loadPersonFromUpQueue() {
-        people.add(floor.popPersonFromUpQueue());
+    private void loadPersonFromUpQueue(Elevator elevator) {
+        people.add(floor.popPersonFromUpQueue(elevator));
     }
 
-    private void loadPersonFromAnyQueue() {
-        people.add(floor.popPersonFromAnyQueue());
+    private void loadPersonFromAnyQueue(Elevator elevator) {
+        people.add(floor.popPersonFromAnyQueue(elevator));
     }
 
     private void getTask(Person newPassenger) {
@@ -120,15 +120,15 @@ public class Elevator implements Runnable {
     public void loadPeople() {
         while (hasFreeSpace() && !floor.isEmpty()) {
             if (getCurrentDirection() == Direction.GOING_DOWN) {
-                loadPersonFromDownQueue();
+                loadPersonFromDownQueue(this);
             } else if(getCurrentDirection() == Direction.GOING_UP){
-                loadPersonFromUpQueue();
+                loadPersonFromUpQueue(this);
             }else{
-                loadPersonFromAnyQueue();
+                loadPersonFromAnyQueue(this);
             }
             getTask(people.peekLast());
 
-            View.personLoadMessage(this.getFloor(), this);
+            //View.personLoadMessage(this.getFloor(), this);
         }
     }
 

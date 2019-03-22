@@ -26,7 +26,7 @@ public class View {
         System.out.println("Person "+ person.getName() + " successfully transported to floor " + person.getDestinationFloor() + ".");
     }
 
-    public static void personLoadMessage(Floor floor, Elevator elevator) {
-        System.out.println("Person onboarded on floor " + floor.getFloorNumber() + " by Elevator: " + elevator.getName());
+    public static void personLoadMessage(Floor floor, Elevator elevator, Person person) {
+        System.out.println("Person " + person.getName() + " onboarded on floor " + floor.getFloorNumber() + " by Elevator: " + elevator.getName());
     }
 }
