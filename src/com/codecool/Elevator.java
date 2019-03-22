@@ -35,12 +35,10 @@ public class Elevator implements Runnable {
         //TODO: moveOneStep zajmuje 1000ms tylko jeśli winda się porusza
         moveOneStep(currentTask);//TODO wywołuje moveStepUp albo moveDown albo nic nie wywołuje (jak winda stoi)
         unloadPeople();
-        //removeCompletedTasks();//TODO usuwa wykonane taski
         loadPeople();//while loading people, elevator gets tasks from them
         //getTasksFromPeople();//TODO bierze taski od ludzi i daje je Budynkowi do handlowania (handluj z tym)
         System.out.println(this.name + " handle task");
     }
-
 
     private Task getCurrentTask() {
         //TODO jeśli jest pełna, to bierze pierwszy task poleający na wyładowaniu
@@ -80,6 +78,24 @@ public class Elevator implements Runnable {
     }
 
     public void unloadPeople() {
+        Floor currentFloor = this.getFloor();
+        for (Person person: people) {
+            if(person.getDestinationFloor() == currentFloor.getFloorNumber()) {
+                people.remove(person);
+                currentFloor.addToTransportedPeople(person);
+            }
+
+            removeCompletedTasks();
+        }
+
+    }
+
+    private void removeCompletedTasks(){
+        for (Task task: this.tasks) {
+            if(task.getDestinationFloorNumber() == this.getFloor().getFloorNumber()) {
+                tasks.remove(task);
+            }
+        }
     }
 
 
