@@ -1,22 +1,19 @@
 package com.codecool;
 
 public class View {
+
+    public static void buildingCreationMessage(int nrOfFloors, int nrOfElevators) {
+        System.out.println("Created building with " + nrOfFloors + " floors and " + nrOfElevators + " elevators. Here the game begins...");
+    }
+
     public static void personCreationMessage(int floor, int destinationFloor){
         System.out.println("Created person on "+floor+" floor with destination floor "+destinationFloor);
     }
 
-    public static void showFloorStatus(Floor floor){
-        System.out.println(floor.getUpQueue().toString());
-        System.out.println(floor.getDownQueue().toString());
-    }
+    public static void confirmTaskAssignmentToElevator(Elevator elevator, Task task){
+        System.out.println("Elevator:" + elevator.getName() + " that is on floor " + elevator.getFloor().getFloorNumber() +
+                ", received a task to go to " + task.getDestinationFloorNumber() +
+                " floor and load/trasport and unload person (true/false): " + task.hasToLoad());
 
-    public static void showElevator(Elevator elevator){
-        System.out.println("Elevator:"+elevator.getName());
-        System.out.println("At floor: "+elevator.getFloor().getFloorNumber());
-        System.out.print("Tasks:");
-        for(Task task : elevator.getTasks()){
-            System.out.print("floor: "+task.getDestinationFloorNumber()+", load: "+task.hasToLoad()+"; ");
-        }
-        System.out.println();
     }
 }

@@ -52,7 +52,6 @@ public class Floor {
         Task newTask = new Task(floorNumber, true);
         Building.getBuilding().assignTask(newTask);
         View.personCreationMessage(this.getFloorNumber(), person.getDestinationFloor());
-        View.showFloorStatus(this);
     }
 
 
