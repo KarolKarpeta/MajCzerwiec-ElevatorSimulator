@@ -104,11 +104,10 @@ public class Building {
             theChosenElevator = getElevatorWithSmallestNumberOfTasks();
         }
         theChosenElevator.addTask(task);
-        View.confirmTaskAssignmentToElevator(theChosenElevator, task);
     }
 
     public static void main(String[] args) {
-        Building kolejowa5na7 = createBuilding(8, 2);
+        createBuilding(8, 1);
         PeopleSpawner peopleSpawner = new PeopleSpawner();
 
         (new Thread(peopleSpawner)).start();

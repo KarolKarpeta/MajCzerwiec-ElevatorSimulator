@@ -8,7 +8,7 @@ public class Elevator implements Runnable {
     private LinkedList<Task> tasks = new LinkedList<>();
     private Floor floor;
     private String name;
-    private static final int SPEED = 1000;
+    private static final int SPEED = 100;
 
     String getName() {
         return name;
@@ -19,6 +19,7 @@ public class Elevator implements Runnable {
 
         while (true) {//TODO dac tu zmienną/metodę, że jak wpisze q + [ENTER] to programIsRunnng zmienia sie na false
             if (getNumberOfTasks() > 0) {
+                View.showElevator(this);
                 this.handleTask();
             }
             try {
@@ -35,6 +36,7 @@ public class Elevator implements Runnable {
         moveOneStep();//TODO wywołuje moveStepUp albo moveDown albo nic nie wywołuje (jak winda stoi)
         unloadPeople();
         loadPeople();
+        System.out.println("step kurwa");
     }
 
     private Task getCurrentTask() {
@@ -82,7 +84,6 @@ public class Elevator implements Runnable {
                 currentFloor.addToTransportedPeople(person);
             }
         }
-
         removeCompletedTasks();
     }
 
@@ -125,6 +126,7 @@ public class Elevator implements Runnable {
                 loadPersonFromAnyQueue();
             }
             getTask(people.peekLast());
+            System.out.println("load person");
         }
     }
 
