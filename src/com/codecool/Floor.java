@@ -21,22 +21,22 @@ public class Floor {
     }
 
     public Person popPersonFromDownQueue(){
-        return downQueue.remove();
+        return downQueue.removeFirst();
     }
     public Person popPersonFromUpQueue(){
-        return upQueue.remove();
+        return upQueue.removeFirst();
     }
 
     public Person popPersonFromAnyQueue(){
         if(!upQueue.isEmpty()){
-            return upQueue.remove();
+            return upQueue.removeFirst();
         }else{
-            return downQueue.remove();
+            return downQueue.removeFirst();
         }
     }
 
     boolean isEmpty(){
-        return upQueue.isEmpty() || downQueue.isEmpty();
+        return upQueue.isEmpty() && downQueue.isEmpty();
     }
 
     /**
@@ -52,15 +52,6 @@ public class Floor {
         Task newTask = new Task(floorNumber, true);
         Building.getBuilding().assignTask(newTask);
         View.personCreationMessage(this.getFloorNumber(), person.getDestinationFloor());
-    }
-
-
-    public List<Person> getUpQueue(){
-        return upQueue;
-    }
-
-    public List<Person> getDownQueue() {
-        return downQueue;
     }
 
     public Floor(int floorNumber) {
