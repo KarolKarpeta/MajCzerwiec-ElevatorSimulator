@@ -84,10 +84,9 @@ public class Elevator implements Runnable {
                 people.remove(person);
                 currentFloor.addToTransportedPeople(person);
             }
-
-            removeCompletedTasks();
         }
 
+        removeCompletedTasks();
     }
 
     private void removeCompletedTasks(){
