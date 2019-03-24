@@ -3,6 +3,19 @@ package com.codecool;
 public class View {
 
 
+    public static void showFloors(){
+        Building kolejowa = Building.getBuilding();
+        Floor[] floors = kolejowa.getFloors();
+        for (int i = floors.length-1; i >= 0; i--) {
+            for(Elevator elevator : kolejowa.getElevators()){
+                if(elevator.getFloor().getFloorNumber() == floors[i].getFloorNumber())
+                System.out.print("#");
+            }
+            System.out.println("\tFloor "+floors[i].getFloorNumber()+" Up:"+floors[i].getUpQueue()
+            +" Down:"+floors[i].getDownQueue());
+        }
+    }
+
     public static void print(Task task){
         System.out.print("["+task.getDestinationFloorNumber());
         if(task.hasToLoad()){

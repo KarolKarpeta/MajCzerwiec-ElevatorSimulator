@@ -4,7 +4,16 @@ import java.util.LinkedList;
 import java.util.Random;
 
 public class Building {
+    public Floor[] getFloors() {
+        return floors;
+    }
+
     private final Floor[] floors;
+
+    public Elevator[] getElevators() {
+        return elevators;
+    }
+
     private final Elevator[] elevators;
     private static Building thisBuilding;
 
@@ -12,14 +21,12 @@ public class Building {
         return thisBuilding;
     }
 
-    private static Building createBuilding(int nrOfFloors, int nrOfElevators) {
+    private static void createBuilding(int nrOfFloors, int nrOfElevators) {
         if (thisBuilding == null) {
             thisBuilding = new Building(nrOfFloors, nrOfElevators);
         } else {
             System.out.println("Building already exists!");
         }
-        return thisBuilding;
-
     }
 
     private Building(int nrOfFloors, int nrOfElevators) {
@@ -30,9 +37,7 @@ public class Building {
         elevators = new Elevator[nrOfElevators];
         for (int i = 0; i < nrOfElevators; i++) {
             elevators[i] = new Elevator(floors[0], i);
-            (new Thread(elevators[i])).start();
         }
-
         View.buildingCreationMessage(nrOfFloors, nrOfElevators);
     }
 
@@ -103,13 +108,17 @@ public class Building {
         } else {
             theChosenElevator = getElevatorWithSmallestNumberOfTasks();
         }
-        theChosenElevator.addTask(task);
+        if(theChosenElevator.isOperating()){
+            theChosenElevator.addTask(task);
+        }else{
+            theChosenElevator.addTask(task);
+            theChosenElevator.activate();
+        }
     }
 
     public static void main(String[] args) {
         createBuilding(8, 1);
         PeopleSpawner peopleSpawner = new PeopleSpawner();
-
         (new Thread(peopleSpawner)).start();
     }
 }

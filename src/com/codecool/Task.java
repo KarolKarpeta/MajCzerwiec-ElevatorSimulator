@@ -3,7 +3,8 @@ package com.codecool;
 public class Task {
     private int destinationFloorNumber;
     private boolean loadPerson;
-
+    //TODO żeby task wiedział też ile osób przewozi
+    //albo jakie dokładnie osoby ma zbindowane
     public boolean hasToLoad() {
         return loadPerson;
     }
