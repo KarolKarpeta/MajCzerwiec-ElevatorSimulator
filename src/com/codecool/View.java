@@ -22,11 +22,11 @@ public class View {
         }
     }
 
-    public static void transportedPersonMessage(Person person) {
-        System.out.println("Person "+ person.getName() + " successfully transported to floor " + person.getDestinationFloor() + ".");
+    public static void transportedPersonMessage(Person person, Elevator elevator) {
+        System.out.println("Person "+ person.getName() + " successfully transported to floor " + person.getDestinationFloor() + " by "+ elevator.getName() + ".");
     }
 
-    public static void personLoadMessage(Floor floor, Elevator elevator, Person person) {
-        System.out.println("Person " + person.getName() + " onboarded on floor " + floor.getFloorNumber() + " by Elevator: " + elevator.getName());
+    public static void personLoadMessage(Elevator elevator, Person person) {
+        System.out.println("Person " + person.getName() + " onboarded on floor " + elevator.getFloor().getFloorNumber() + " by " + elevator.getName() + ".");
     }
 }

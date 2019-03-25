@@ -21,7 +21,7 @@ public class Person {
     String[] names = {"Maciek", "Józek", "Antek", "Janek", "Krzychu", "Marian", "Ferdek", "Walduś", "Halina", "Grażyna", "Hela",
                         "Jaćka", "Heniek", "Stasek", "Franek", "Zbynek", "Zenek", "Brygida", "Kuba", "Klemens", "Eustachy", "Edward",
                         "Eugeniusz", "Fryderyk", "Gniewomir", "Gustaw", "Gżegoż", "Irek", "Jerzy", "Julian", "Kajetan", "Konstanty",
-                        "Kryspin", "Krzesimir", "Kondrad", "Kazek", "Leopold", "Leszek", "Leopold", "Maurycy", "Mieszko"};
+                        "Kryspin", "Krzesimir", "Kondrad", "Kazek", "Leopold", "Leszek", "Leopold", "Maurycy", "Mieszko", "Arek", "Karol"};
 
         return names[random.nextInt(names.length)];
     }

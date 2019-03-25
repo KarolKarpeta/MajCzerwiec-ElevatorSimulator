@@ -23,13 +23,13 @@ public class Floor {
     public Person popPersonFromDownQueue(Elevator elevator){
         Person poppedOne = downQueue.remove();
 
-        View.personLoadMessage(elevator.getFloor(), elevator, poppedOne);
+        View.personLoadMessage(elevator, poppedOne);
         return poppedOne;
     }
     public Person popPersonFromUpQueue(Elevator elevator){
         Person poppedOne = upQueue.remove();
 
-        View.personLoadMessage(elevator.getFloor(), elevator, poppedOne);
+        View.personLoadMessage(elevator, poppedOne);
         return poppedOne;
     }
 

@@ -9,7 +9,7 @@ public class Elevator implements Runnable {
     private Floor floor;
     private String name;
     private static final int SPEED = 1000;
-    private boolean programIsRunning = true;
+    private static boolean programIsRunning = true;
 
     String getName() {
         return name;
@@ -19,7 +19,8 @@ public class Elevator implements Runnable {
     public void run() {
 
         while (programIsRunning) {//TODO dac tu zmienną/metodę, że jak wpisze q + [ENTER] to programIsRunning zmienia sie na false
-            if (getNumberOfTasks() > 0) {
+            if (getNumberOfTasks() > 0) { //asynchronous call - wygooglować
+                //callback / event etc
                 this.handleTask();
             }
             try {
@@ -50,14 +51,14 @@ public class Elevator implements Runnable {
 
     private void moveOneStep() {
         Direction current = getCurrentDirection();
-        if (current == Direction.GOING_UP) {
+        if (Direction.GOING_UP.equals(current)) {
             moveStepUp();
-        } else if (current == Direction.GOING_DOWN) {
+        } else if (Direction.GOING_DOWN.equals(current)) {
             moveStepDown();
         }
     }
 
-    private void moveStepUp() {
+    private void moveStepUp() { //TODO połączyć 2 metody za pomocą parametru
         try {
             Thread.sleep(SPEED);
         } catch (InterruptedException e) {
@@ -81,7 +82,7 @@ public class Elevator implements Runnable {
             if(person.getDestinationFloor() == currentFloor.getFloorNumber()) {
                 people.remove(person);
                 currentFloor.addToTransportedPeople(person);
-                View.transportedPersonMessage(person);
+                View.transportedPersonMessage(person, this);
             }
         }
 
@@ -89,7 +90,8 @@ public class Elevator implements Runnable {
     }
 
     private void removeCompletedTasks(){
-        for (Task task: this.tasks) {
+        for (Task task: this.tasks) { //TODO druga struktura, bo w tym przypadku, jeśli ktoś coś dorzuci do tasks w trakcie iteracji po tej pętli, to program się wykrzaczy
+            // trzeba zrobić drugą strukturę, w której będą sobie czekać dodawane taski
             if(task.getDestinationFloorNumber() == this.getFloor().getFloorNumber()) {
                 tasks.remove(task);
             }
