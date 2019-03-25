@@ -4,24 +4,25 @@ import java.util.LinkedList;
 import java.util.Random;
 
 public class Building {
+    private final Elevator[] elevators;
+    private final Floor[] floors;
+    private static Building thisBuilding;
+
     public Floor[] getFloors() {
         return floors;
     }
 
-    private final Floor[] floors;
 
     public Elevator[] getElevators() {
         return elevators;
     }
 
-    private final Elevator[] elevators;
-    private static Building thisBuilding;
 
     public static Building getBuilding() {
         return thisBuilding;
-    }
+    } //model
 
-    private static void createBuilding(int nrOfFloors, int nrOfElevators) {
+    private static void createBuilding(int nrOfFloors, int nrOfElevators) {//model
         if (thisBuilding == null) {
             thisBuilding = new Building(nrOfFloors, nrOfElevators);
         } else {
@@ -29,7 +30,7 @@ public class Building {
         }
     }
 
-    private Building(int nrOfFloors, int nrOfElevators) {
+    private Building(int nrOfFloors, int nrOfElevators) {//model
         floors = new Floor[nrOfFloors];
         for (int i = 0; i < nrOfFloors; i++) {
             floors[i] = new Floor(i);
@@ -43,13 +44,13 @@ public class Building {
 
     public Floor getLowerFloor(Floor floor) {
         return floors[floor.getFloorNumber() - 1];
-    }
+    }//zabezpieczyć na nullpointerexception
 
     public Floor getHigherFloor(Floor floor) {
         return floors[floor.getFloorNumber() + 1];
-    }
+    }//zaebpieczyc jw.
 
-    void generatePerson() {
+    void generatePerson() {//controller
         Random randomNumber = new Random();
 
         int currentFloor = randomNumber.nextInt(floors.length);
@@ -100,7 +101,7 @@ public class Building {
         return theClosestElevator;
     }
 
-    void assignTask(Task task) {
+    void assignTask(Task task) { //controller
         LinkedList<Elevator> availableElevators = getAvailableElevators(task.getDestinationFloorNumber());
         Elevator theChosenElevator;
         if (availableElevators.size() > 0) {
@@ -112,9 +113,10 @@ public class Building {
         if (!theChosenElevator.isOperating()) {
             theChosenElevator.activate();
         }
+        View.confirmTaskAssignmentToElevator(theChosenElevator, task);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) {//controller
         createBuilding(4, 1);
         PeopleSpawner peopleSpawner = new PeopleSpawner();
         Thread spawnThread = new Thread(peopleSpawner);

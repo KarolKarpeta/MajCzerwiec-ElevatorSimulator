@@ -5,6 +5,18 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class View {
 
 
+    public static void confirmTaskAssignmentToElevator(Elevator elevator, Task task){
+        if (task.hasToLoad()) {
+        System.out.println("Elevator: " + elevator.getName() + " on floor " + elevator.getFloor().getFloorNumber() +
+                ", task => " + task.getDestinationFloorNumber() +
+                " to take a person.");
+        } else {
+            System.out.println("Elevator:" + elevator.getName() + " loads person on floor " + elevator.getFloor().getFloorNumber() +
+                    "and is to transport a person to " + task.getDestinationFloorNumber() +
+                    " .");
+        }
+    }
+
     public static void showFloors(){
         Building kolejowa = Building.getBuilding();
         Floor[] floors = kolejowa.getFloors();
