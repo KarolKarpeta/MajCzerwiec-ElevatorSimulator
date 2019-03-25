@@ -1,7 +1,7 @@
 package com.codecool;
 
 public class PeopleSpawner implements Runnable {
-    private static final int NUMBER_OF_PEOPLE_TO_CREATE = 4;
+    private static final int NUMBER_OF_PEOPLE_TO_CREATE = 2;
     private static final int SPAWN_INTERVAL = 20;//milliseconds
     @Override
     public void run() {

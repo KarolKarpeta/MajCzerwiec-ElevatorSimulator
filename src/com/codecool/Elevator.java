@@ -10,18 +10,20 @@ public class Elevator implements Runnable {
     private static final int SPEED = 100;
     private Floor floor;
     private String name;
-    private List<Task> newTasks = new LinkedList<>();
+    private LinkedList<Task> newTasks = new LinkedList<>();
     private LinkedList<Person> people = new LinkedList<>();
     private LinkedBlockingQueue<Task> tasks = new LinkedBlockingQueue<>();//TODO to znowu na zwykłą LinkedList, i ona jest wewnętrzną strukturą windy
     private java.lang.Thread thread = new Thread(this);
     //TODO specjalne pudełko/BlockingQueue? na nowe taski pochodzące z zewnątrz
 
     void activate() {
-        thread.start();
+        if (!thread.isAlive()) {
+            thread.start();
+        }
     }
 
     void addTask(Task task) {
-        tasks.add(task);
+        newTasks.add(task);
     }
 
     Elevator(Floor floor, int elevatorNumber) {
@@ -29,7 +31,7 @@ public class Elevator implements Runnable {
         this.name = "Winda" + elevatorNumber;
     }
 
-    private Direction getCurrentDirection() {
+    public Direction getCurrentDirection() {
         int currentFloorNumber = this.floor.getFloorNumber();
         if (tasks.peek() != null) {
             int nextFloorNumber = tasks.peek().getDestinationFloorNumber();
@@ -48,13 +50,13 @@ public class Elevator implements Runnable {
     private Task getCurrentTask() {
         //TODO jeśli jest pełna, to bierze pierwszy task polegający na wyładowaniu
         //bo teraz tylko bierze pierwszys task z brzegu i nie patrzy co bierze
+        takeNewTask();
         return this.tasks.peek();
     }
 
     Floor getFloor() {
         return floor;
     }
-
 
     String getName() {
         return name;
@@ -90,9 +92,10 @@ public class Elevator implements Runnable {
 
     private void handleTask() {
         //TODO: moveOneStep zajmuje 1000ms tylko jeśli winda się porusza
-        moveOneStep();//TODO wywołuje moveStepUp albo moveDown albo nic nie wywołuje (jak winda stoi)
+        moveOneStep();
         unloadPeople();
         loadPeople();
+        System.out.println("handling");
     }
 
     private boolean hasFreeSpace() {
@@ -107,17 +110,21 @@ public class Elevator implements Runnable {
     }
 
     public boolean isOperating() {
-        return getNumberOfTasks() > 0;
+        return thread.isAlive();
     }
 
     public void loadPeople() {
         Direction elevatorDirection = getCurrentDirection();
         while (hasFreeSpace() && !floor.isEmpty(elevatorDirection)) {
+            System.out.println("1");
             loadPerson(getCurrentDirection());
-            removeLoadingTasks(floor.getFloorNumber());
+            System.out.println("2");
             getTask(people.peekLast());
-            System.out.println("load person");
+            System.out.println("3");
         }
+        //if(floor.isEmpty()){
+        //    removeLoadingTask();
+        //}
     }
 
     private void loadPerson(Direction direction) {
@@ -131,6 +138,7 @@ public class Elevator implements Runnable {
         }
         if (newPassenger != null) {
             people.add(newPassenger);
+            removeLoadingTask(floor.getFloorNumber());
         }
     }
 
@@ -156,27 +164,30 @@ public class Elevator implements Runnable {
                 currentFloor.addToTransportedPeople(person);
             }
         }
-        removeCompletedTasks();
+        removeUnloadingTasks(currentFloor.getFloorNumber());
     }
 
-    private void removeCompletedTasks() {
-        for (Task task : this.tasks) {
-            if (task.getDestinationFloorNumber() == this.getFloor().getFloorNumber()) {
+    private void removeUnloadingTasks(int floorNumber) {
+        Task toRemove = new Task(floorNumber, false);
+        for (Task task : tasks) {
+            if (task.equals(toRemove)) {
                 tasks.remove(task);
             }
         }
     }
 
-    private void removeLoadingTasks(int floorNumber) {
-        Task toRemove = new Task(floorNumber, true);
-        while (tasks.remove(toRemove)) {
-
+    private void removeLoadingTask(int floorNumber) {
+        for(Task task : tasks){
+            if(task.hasToLoad() && task.getDestinationFloorNumber() == floorNumber){
+                tasks.remove(task);
+            }
         }
     }
 
     @Override
     public void run() {
         System.out.println(name + " start");
+        takeNewTask();
         while (isOperating()) {//TODO dac tu zmienną/metodę, że jak wpisze q + [ENTER] to programIsRunnng zmienia sie na false
             View.showFloors();
             View.showElevator(this);
@@ -188,6 +199,13 @@ public class Elevator implements Runnable {
             }
         }
         System.out.println(name + " shutdown");
+    }
+
+    private void takeNewTask() {
+        Task newTask = newTasks.poll();
+        if (newTask != null) {
+            tasks.add(newTask);
+        }
     }
 
 }

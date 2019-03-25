@@ -1,5 +1,7 @@
 package com.codecool;
 
+import java.util.concurrent.LinkedBlockingQueue;
+
 public class View {
 
 
@@ -12,7 +14,7 @@ public class View {
                 System.out.print("#");
             }
             System.out.println("\tFloor "+floors[i].getFloorNumber()+" Up:"+floors[i].getUpQueue()
-            +" Down:"+floors[i].getDownQueue());
+            +" Down:"+floors[i].getDownQueue()+" Transported: "+floors[i].getTransportedPeople());
         }
     }
 
@@ -34,12 +36,9 @@ public class View {
     }
 
     public static void showElevator(Elevator elevator){
-        System.out.println(elevator.getName() + " on " + elevator.getFloor().getFloorNumber()+" floor");
+        System.out.println(elevator.getName() + " on " + elevator.getFloor().getFloorNumber()+" floor, direction:"+elevator.getCurrentDirection());
         System.out.print("Tasks: ");
-        for(Task task : elevator.getTasks()){
-            print(task);
-        }
-        System.out.println();
+        print(elevator.getTasks());
         print(elevator.getPeople());
         System.out.println("#############################################################");
     }
@@ -52,4 +51,10 @@ public class View {
         System.out.println("Created person " + floor + " => " + destinationFloor);
     }
 
+    public static void print(LinkedBlockingQueue<Task> tasks){
+        for(Task task : tasks){
+            print(task);
+        }
+        System.out.println();
+    }
 }

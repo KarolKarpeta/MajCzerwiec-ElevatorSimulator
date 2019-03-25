@@ -40,6 +40,9 @@ public class Floor {
         }
     }
 
+    boolean isEmpty(){
+        return upQueue.isEmpty() && downQueue.isEmpty();
+    }
 
     public LinkedList<Person> getDownQueue() {
         return downQueue;

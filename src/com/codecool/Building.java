@@ -117,7 +117,7 @@ public class Building {
     }
 
     public static void main(String[] args) {
-        createBuilding(8, 1);
+        createBuilding(4, 1);
         PeopleSpawner peopleSpawner = new PeopleSpawner();
         (new Thread(peopleSpawner)).start();
     }
