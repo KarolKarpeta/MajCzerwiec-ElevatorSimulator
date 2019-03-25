@@ -17,7 +17,7 @@ public class Elevator implements Runnable {
 
     void activate() {
         if (!thread.isAlive()) {
-            thread.start();
+            thread.run();
         }
     }
 

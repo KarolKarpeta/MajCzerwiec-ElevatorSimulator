@@ -2,7 +2,7 @@ package com.codecool;
 
 public class PeopleSpawner implements Runnable {
     private static final int NUMBER_OF_PEOPLE_TO_CREATE = 6;
-    private static final int SPAWN_INTERVAL = 2;//milliseconds
+    private static final int SPAWN_INTERVAL = 10000;//milliseconds
     @Override
     public void run() {
         Building kolejowa = Building.getBuilding();
@@ -12,6 +12,9 @@ public class PeopleSpawner implements Runnable {
                 Thread.sleep(SPAWN_INTERVAL);
             } catch (InterruptedException e) {
                 e.printStackTrace();
+            }
+            if(i == NUMBER_OF_PEOPLE_TO_CREATE - 1) {
+                System.out.println("i chuj   (koniec programu)");
             }
         }
     }
