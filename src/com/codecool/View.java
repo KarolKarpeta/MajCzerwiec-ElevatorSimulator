@@ -19,6 +19,10 @@ public class View {
     }
 
     public static void print(Task task){
+        if(task == null){
+            System.out.print("null");
+            return;
+        }
         System.out.print("["+task.getDestinationFloorNumber());
         if(task.hasToLoad()){
             System.out.print(", load], ");

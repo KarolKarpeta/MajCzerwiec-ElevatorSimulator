@@ -10,5 +10,7 @@ public class Person {
     public int getDestinationFloor() {
         return destinationFloor;
     }
-
+    public Task getUnloadingTask(){
+        return new Task(this);
+    }
 }

@@ -9,8 +9,8 @@ public class Elevator implements Runnable {
     private static final int SPEED = 100;
     private Floor floor;
     private String name;
-    private LinkedList<Task> newTasks = new LinkedList<>();
-    private LinkedList<Person> people = new LinkedList<>();
+    private LinkedBlockingQueue<Task> newTasks = new LinkedBlockingQueue<>();
+    private LinkedBlockingQueue<Person> people = new LinkedBlockingQueue<>();
     private LinkedBlockingQueue<Task> tasks = new LinkedBlockingQueue<>();//TODO to znowu na zwykłą LinkedList, i ona jest wewnętrzną strukturą windy
     private java.lang.Thread thread = new Thread(this);
     //TODO specjalne pudełko/BlockingQueue? na nowe taski pochodzące z zewnątrz
@@ -31,9 +31,14 @@ public class Elevator implements Runnable {
     }
 
     public Direction getCurrentDirection() {
+        System.out.println("getCurrentDirection");
         int currentFloorNumber = this.floor.getFloorNumber();
-        if (getCurrentTask() != null) {
-            int nextFloorNumber = getCurrentTask().getDestinationFloorNumber();
+        Task currentTask = getCurrentTask();
+        System.out.print("Current task: ");
+        View.print(currentTask);
+        System.out.println();
+        if (currentTask != null) {
+            int nextFloorNumber = currentTask.getDestinationFloorNumber();
             if (nextFloorNumber < currentFloorNumber) {
                 return Direction.GOING_DOWN;
             } else if (nextFloorNumber > currentFloorNumber) {
@@ -50,6 +55,13 @@ public class Elevator implements Runnable {
         //TODO jeśli jest pełna, to bierze pierwszy task polegający na wyładowaniu
         //bo teraz tylko bierze pierwszys task z brzegu i nie patrzy co bierze
         takeNewTask();
+        if(hasFreeSpace()){
+            for(Task task : tasks){
+                if(!task.hasToLoad()){
+                    return task;
+                }
+            }
+        }
         return tasks.peek();
     }
 
@@ -82,7 +94,7 @@ public class Elevator implements Runnable {
 
     private void getTask(Person newPassenger) {
         //TODO jeśli winda już ma taki task, to go nie dodawaj
-        tasks.add(new Task(newPassenger));
+        newTasks.add(new Task(newPassenger));
     }
 
     LinkedBlockingQueue<Task> getTasks() {
@@ -117,13 +129,16 @@ public class Elevator implements Runnable {
 
     public void loadPeople() {
         Direction elevatorDirection = getCurrentDirection();
+        Person newPassenger;
+        Task newTask;
         while (hasFreeSpace() && !floor.isEmpty(elevatorDirection)) {
-            loadPerson(getCurrentDirection());
-            getTask(people.peekLast());
+            newPassenger = loadPerson(getCurrentDirection());
+            newTask = newPassenger.getUnloadingTask();
+            addTask(newTask);
         }
     }
 
-    private void loadPerson(Direction direction) {
+    private Person loadPerson(Direction direction) {
         Person newPassenger;
         if (Direction.GOING_UP.equals(direction)) {
             newPassenger = floor.popPersonFromUpQueue();
@@ -136,6 +151,7 @@ public class Elevator implements Runnable {
             people.add(newPassenger);
             removeLoadingTask(floor.getFloorNumber());
         }
+        return newPassenger;
     }
 
     private void moveOneStep() {

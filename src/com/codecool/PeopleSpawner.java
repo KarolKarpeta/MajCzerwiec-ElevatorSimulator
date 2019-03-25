@@ -1,8 +1,8 @@
 package com.codecool;
 
 public class PeopleSpawner implements Runnable {
-    private static final int NUMBER_OF_PEOPLE_TO_CREATE = 3;
-    private static final int SPAWN_INTERVAL = 200;//milliseconds
+    private static final int NUMBER_OF_PEOPLE_TO_CREATE = 6;
+    private static final int SPAWN_INTERVAL = 2;//milliseconds
     @Override
     public void run() {
         Building kolejowa = Building.getBuilding();

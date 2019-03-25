@@ -108,10 +108,8 @@ public class Building {
         } else {
             theChosenElevator = getElevatorWithSmallestNumberOfTasks();
         }
-        if(theChosenElevator.isOperating()){
-            theChosenElevator.addTask(task);
-        }else{
-            theChosenElevator.addTask(task);
+        theChosenElevator.addTask(task);
+        if (!theChosenElevator.isOperating()) {
             theChosenElevator.activate();
         }
     }
