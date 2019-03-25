@@ -117,6 +117,21 @@ public class Building {
     public static void main(String[] args) {
         createBuilding(4, 1);
         PeopleSpawner peopleSpawner = new PeopleSpawner();
-        (new Thread(peopleSpawner)).start();
+        Thread spawnThread = new Thread(peopleSpawner);
+        spawnThread.start();
+        try {
+            spawnThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        peopleSpawner = new PeopleSpawner(20, 5);
+        spawnThread = new Thread(peopleSpawner);
+        spawnThread.start();
+        try {
+            spawnThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Done");
     }
 }

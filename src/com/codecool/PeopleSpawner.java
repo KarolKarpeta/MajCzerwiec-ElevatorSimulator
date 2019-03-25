@@ -1,19 +1,29 @@
 package com.codecool;
 
 public class PeopleSpawner implements Runnable {
-    private static final int NUMBER_OF_PEOPLE_TO_CREATE = 6;
-    private static final int SPAWN_INTERVAL = 10000;//milliseconds
+    private final int numberOfPeopleToCreate;
+    private final int spawnInterval;//milliseconds
+    PeopleSpawner(int spawnInterval, int numberOfPeople){
+        this.spawnInterval = spawnInterval;
+        this.numberOfPeopleToCreate = numberOfPeople;
+    }
+
+    PeopleSpawner(){
+        this.spawnInterval = 10000;
+        this.numberOfPeopleToCreate = 3;
+    }
+
     @Override
     public void run() {
         Building kolejowa = Building.getBuilding();
-        for (int i = 0; i < NUMBER_OF_PEOPLE_TO_CREATE; i++) {
+        for (int i = 0; i < numberOfPeopleToCreate; i++) {
             kolejowa.generatePerson();
             try {
-                Thread.sleep(SPAWN_INTERVAL);
+                Thread.sleep(spawnInterval);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            if(i == NUMBER_OF_PEOPLE_TO_CREATE - 1) {
+            if(i == numberOfPeopleToCreate - 1) {
                 System.out.println("i chuj   (koniec programu)");
             }
         }
