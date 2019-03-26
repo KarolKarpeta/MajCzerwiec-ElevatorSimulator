@@ -11,11 +11,15 @@ public class Floor {
     private List<Person> transportedPeople = new LinkedList<>();
     private int floorNumber;
 
-    public List<Person> getTransportedPeople() {
-        return transportedPeople;
-    }
 
+    /**
+     * Appends Person to upQueue  or DownQueue
+     *
+     * @param person already created Person object to add to the Floor
+     */
     public void addPersonToRelevantQueue(Person person) {
+        View.personCreationMessage(this.getFloorNumber(), person.getDestinationFloor());
+        View.personCreationMessage(this.getFloorNumber(), person);
         if (person.getDestinationFloor() > this.floorNumber) {
             upQueue.add(person);
         } else {
@@ -23,7 +27,6 @@ public class Floor {
         }
         Task newTask = new Task(floorNumber, true);
         Building.getBuilding().assignTask(newTask);
-        View.personCreationMessage(this.getFloorNumber(), person.getDestinationFloor());
     }
 
     public void addToTransportedPeople(Person transportedPerson) {
@@ -40,7 +43,7 @@ public class Floor {
         }
     }
 
-    boolean isEmpty(){
+    boolean isEmpty() {
         return upQueue.isEmpty() && downQueue.isEmpty();
     }
 
@@ -50,6 +53,10 @@ public class Floor {
 
     public int getFloorNumber() {
         return floorNumber;
+    }
+
+    public List<Person> getTransportedPeople() {
+        return transportedPeople;
     }
 
     public LinkedList<Person> getUpQueue() {
