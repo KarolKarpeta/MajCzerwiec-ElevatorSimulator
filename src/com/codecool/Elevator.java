@@ -102,9 +102,10 @@ public class Elevator implements Runnable {
 
     private void handleTask() {
         //TODO: moveOneStep zajmuje 1000ms tylko jeśli winda się porusza
-        moveOneStep();
+        Direction currentDirection = getCurrentDirection();
+        moveOneStep(currentDirection);
         unloadPeople();
-        loadPeople();
+        loadPeople(currentDirection);
     }
 
     private boolean hasTasksOrPassengers() {
@@ -118,7 +119,7 @@ public class Elevator implements Runnable {
     //TODO kontroler odpala run(jeśli wcześniej winda nie miała tasków), a jak winda wykonuje ostatni task,to run się zamyka
     boolean isAvailable(int destinationFloorNumber) {
         Direction newTaskDirection = getNewTaskDirection(destinationFloorNumber);
-        return (people.size() < CAPACITY && this.getCurrentDirection() == newTaskDirection)
+        return (people.size() < CAPACITY && newTaskDirection.equals(getCurrentDirection()))
                 || tasks.isEmpty();
     }
 
@@ -126,8 +127,7 @@ public class Elevator implements Runnable {
         return thread.isAlive();
     }
 
-    public void loadPeople() {
-        Direction elevatorDirection = getCurrentDirection();
+    public void loadPeople(Direction elevatorDirection) {
         Person newPassenger;
         Task newTask;
         while (hasFreeSpace() && !floor.isEmpty(elevatorDirection)) {
@@ -154,8 +154,7 @@ public class Elevator implements Runnable {
         return newPassenger;
     }
 
-    private void moveOneStep() {
-        Direction current = getCurrentDirection();
+    private void moveOneStep(Direction current) {
         try {
             Thread.sleep(SPEED);
         } catch (InterruptedException e) {
