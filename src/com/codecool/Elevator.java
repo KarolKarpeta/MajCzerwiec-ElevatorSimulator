@@ -55,9 +55,9 @@ public class Elevator implements Runnable {
         //TODO jeśli jest pełna, to bierze pierwszy task polegający na wyładowaniu
         //bo teraz tylko bierze pierwszys task z brzegu i nie patrzy co bierze
         takeNewTask();
-        if(hasFreeSpace()){
-            for(Task task : tasks){
-                if(!task.hasToLoad()){
+        if (hasFreeSpace()) {
+            for (Task task : tasks) {
+                if (!task.hasToLoad()) {
                     return task;
                 }
             }
@@ -148,6 +148,7 @@ public class Elevator implements Runnable {
             newPassenger = floor.popPersonFromAnyQueue();
         }
         if (newPassenger != null) {
+            View.personLoadMessage(this, newPassenger);
             people.add(newPassenger);
             removeLoadingTask(floor.getFloorNumber());
         }

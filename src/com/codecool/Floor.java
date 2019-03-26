@@ -69,9 +69,9 @@ public class Floor {
 
     public Person popPersonFromAnyQueue() {
         if (!upQueue.isEmpty()) {
-            return upQueue.pollFirst();
+            return popPersonFromUpQueue();
         } else {
-            return downQueue.pollFirst();
+            return popPersonFromDownQueue();
         }
     }
 
