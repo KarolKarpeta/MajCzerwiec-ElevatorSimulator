@@ -4,6 +4,9 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class View {
 
+    public static void buildingCreationMessage(int nrOfFloors, int nrOfElevators) {
+        System.out.println("Building: " + nrOfFloors + " floors and " + nrOfElevators + " elevators. Here the game begins...\n");
+    }
 
     public static void confirmTaskAssignmentToElevator(Elevator elevator, Task task){
         if (task.hasToLoad()) {
