@@ -5,7 +5,6 @@ import java.util.List;
 
 public class Floor {
 
-
     private LinkedList<Person> upQueue = new LinkedList<>();
     private LinkedList<Person> downQueue = new LinkedList<>();
     private List<Person> transportedPeople = new LinkedList<>();

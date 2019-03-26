@@ -31,7 +31,6 @@ public class Elevator implements Runnable {
     }
 
     public Direction getCurrentDirection() {
-        System.out.println("getCurrentDirection");
         int currentFloorNumber = this.floor.getFloorNumber();
         Task currentTask = getCurrentTask();
         System.out.print("Current task: ");
@@ -93,7 +92,6 @@ public class Elevator implements Runnable {
     }
 
     private void getTask(Person newPassenger) {
-        //TODO jeśli winda już ma taki task, to go nie dodawaj
         newTasks.add(new Task(newPassenger));
     }
 
@@ -132,7 +130,7 @@ public class Elevator implements Runnable {
         Person newPassenger;
         Task newTask;
         while (hasFreeSpace() && !floor.isEmpty(elevatorDirection)) {
-            newPassenger = loadPerson(getCurrentDirection());
+            newPassenger = loadPerson(elevatorDirection);
             newTask = newPassenger.getUnloadingTask();
             addTask(newTask);
         }
@@ -175,6 +173,7 @@ public class Elevator implements Runnable {
             if (person.getDestinationFloor() == currentFloor.getFloorNumber()) {
                 people.remove(person);
                 currentFloor.addToTransportedPeople(person);
+                View.transportedPersonMessage(person, this);
             }
         }
         removeUnloadingTasks(currentFloor.getFloorNumber());
