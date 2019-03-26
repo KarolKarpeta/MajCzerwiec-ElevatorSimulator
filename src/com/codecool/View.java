@@ -1,6 +1,7 @@
 package com.codecool;
 
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.List;
 
 public class View {
 
@@ -68,6 +69,19 @@ public class View {
         System.out.println("#############################################################");
     }
 
+    private static String showQueue(List<Person> queue) {
+        StringBuilder out = new StringBuilder();
+        for (Person person : queue) {
+            out.append(person.getName()).append(", ");
+        }
+        return out.toString();
+    }
+
+    private static void showFloor(Floor floor) {
+        System.out.println("\tFloor " + floor.getFloorNumber() + " Up:" + showQueue(floor.getUpQueue()) +
+                " Down:" + showQueue(floor.getDownQueue()) + " Transported: " + showQueue(floor.getTransportedPeople()));
+    }
+
     public static void showFloors() {
         Building kolejowa = Building.getBuilding();
         Floor[] floors = kolejowa.getFloors();
@@ -76,8 +90,7 @@ public class View {
                 if (elevator.getFloor().getFloorNumber() == floors[i].getFloorNumber())
                     System.out.print("#");
             }
-            System.out.println("\tFloor " + floors[i].getFloorNumber() + " Up:" + floors[i].getUpQueue()
-                    + " Down:" + floors[i].getDownQueue() + " Transported: " + floors[i].getTransportedPeople());
+            showFloor(floors[i]);
         }
     }
 
