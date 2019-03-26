@@ -69,7 +69,7 @@ public class View {
         System.out.println("#############################################################");
     }
 
-    private static String showQueue(List<Person> queue) {
+    private static String getQueueString(List<Person> queue) {
         StringBuilder out = new StringBuilder();
         for (Person person : queue) {
             out.append(person.getName()).append(", ");
@@ -78,8 +78,8 @@ public class View {
     }
 
     private static void showFloor(Floor floor) {
-        System.out.println("\tFloor " + floor.getFloorNumber() + " Up:" + showQueue(floor.getUpQueue()) +
-                " Down:" + showQueue(floor.getDownQueue()) + " Transported: " + showQueue(floor.getTransportedPeople()));
+        System.out.println("\tFloor " + floor.getFloorNumber() + " Up: " + getQueueString(floor.getUpQueue()) +
+                " | Down: " + getQueueString(floor.getDownQueue()) + " | Transported: " + getQueueString(floor.getTransportedPeople()));
     }
 
     public static void showFloors() {
