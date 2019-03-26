@@ -23,6 +23,7 @@ public class Elevator implements Runnable {
 
     void addTask(Task task) {
         newTasks.add(task);
+        View.confirmTaskAssignmentToElevator(this, task);
     }
 
     Elevator(Floor floor, int elevatorNumber) {

@@ -113,7 +113,6 @@ public class Building {
         if (!theChosenElevator.isOperating()) {
             theChosenElevator.activate();
         }
-        View.confirmTaskAssignmentToElevator(theChosenElevator, task);
     }
 
     public static void main(String[] args) {//controller
