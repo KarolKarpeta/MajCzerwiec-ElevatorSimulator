@@ -18,7 +18,6 @@ public class PeopleSpawner implements Runnable {
 
     @Override
     public void run() {
-        Building kolejowa = Building.getBuilding();
         for (int i = 0; i < numberOfPeopleToCreate; i++) {
             ElevatorSimulator.generatePerson();
             try {
