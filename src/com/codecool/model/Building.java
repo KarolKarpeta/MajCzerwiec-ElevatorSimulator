@@ -1,4 +1,6 @@
-package com.codecool;
+package com.codecool.model;
+
+import com.codecool.view.View;
 
 import java.util.LinkedList;
 import java.util.Random;
@@ -12,11 +14,9 @@ public class Building {
         return floors;
     }
 
-
     public Elevator[] getElevators() {
         return elevators;
     }
-
 
     public static Building getBuilding() {
         return thisBuilding;
@@ -62,7 +62,8 @@ public class Building {
 
         Person person = new Person(destinationFloor);
         floors[currentFloor].addPersonToRelevantQueue(person);
-
+        Task newTask = new Task(floors[currentFloor].getFloorNumber(), true);
+        assignTask(newTask);
     }
 
     private LinkedList<Elevator> getAvailableElevators(int destinationFloorNumber) {
@@ -116,23 +117,23 @@ public class Building {
     }
 
     public static void main(String[] args) {//controller
-        createBuilding(4, 1);
-        PeopleSpawner peopleSpawner = new PeopleSpawner();
-        Thread spawnThread = new Thread(peopleSpawner);
-        spawnThread.start();
-        try {
-            spawnThread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        createBuilding(5, 5);
+        PeopleSpawner peopleSpawner;
+        Thread spawnThread;
+
+        peopleSpawner = new PeopleSpawner(5, 11);
+        spawnThread = new Thread(peopleSpawner);
+        spawnThread.run();
+        System.out.println("Done");
+        peopleSpawner = new PeopleSpawner(5000, 1);
+        spawnThread = new Thread(peopleSpawner);
+        spawnThread.run();
+        System.out.println("Done");
+
         peopleSpawner = new PeopleSpawner(20, 5);
         spawnThread = new Thread(peopleSpawner);
-        spawnThread.start();
-        try {
-            spawnThread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        spawnThread.run();
+
         System.out.println("Done");
     }
 }

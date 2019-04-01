@@ -1,6 +1,7 @@
-package com.codecool;
+package com.codecool.view;
 
-import java.util.concurrent.LinkedBlockingQueue;
+import com.codecool.model.*;
+
 import java.util.List;
 
 public class View {
@@ -54,17 +55,9 @@ public class View {
         System.out.println();
     }
 
-    public static void print(LinkedBlockingQueue<Task> tasks) {
-        for (Task task : tasks) {
-            print(task);
-        }
-        System.out.println();
-    }
-
     public static void showElevator(Elevator elevator) {
         System.out.println(elevator.getName() + " on " + elevator.getFloor().getFloorNumber() + " floor, direction:" + elevator.getCurrentDirection());
         System.out.print("Tasks: ");
-        print(elevator.getTasks());
         print(elevator.getPeople());
         System.out.println("#############################################################");
     }

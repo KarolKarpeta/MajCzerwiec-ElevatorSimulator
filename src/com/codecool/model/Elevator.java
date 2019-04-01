@@ -1,6 +1,5 @@
-package com.codecool;
+package com.codecool.model;
 
-import java.util.LinkedList;
 import java.util.concurrent.LinkedBlockingQueue;
 
 
@@ -12,31 +11,31 @@ public class Elevator implements Runnable {
     private LinkedBlockingQueue<Task> newTasks = new LinkedBlockingQueue<>();
     private LinkedBlockingQueue<Person> people = new LinkedBlockingQueue<>();
     private LinkedBlockingQueue<Task> tasks = new LinkedBlockingQueue<>();//TODO to znowu na zwykłą LinkedList, i ona jest wewnętrzną strukturą windy
-    private java.lang.Thread thread = new Thread(this);
+    private java.lang.Thread thread;
     //TODO specjalne pudełko/BlockingQueue? na nowe taski pochodzące z zewnątrz
-
+    //TODO dodanie ElevatorState, do brana dostepnych wind
     void activate() {
         if (!thread.isAlive()) {
-            thread.run();
+            thread = new Thread(this);
+            thread.start();
+            System.out.println("Thread started");
         }
     }
 
     void addTask(Task task) {
         newTasks.add(task);
-        View.confirmTaskAssignmentToElevator(this, task);
+        //View.confirmTaskAssignmentToElevator(this, task);
     }
 
     Elevator(Floor floor, int elevatorNumber) {
         this.floor = floor;
         this.name = "Winda" + elevatorNumber;
+        this.thread = new Thread("thread"+name);
     }
 
     public Direction getCurrentDirection() {
         int currentFloorNumber = this.floor.getFloorNumber();
         Task currentTask = getCurrentTask();
-        System.out.print("Current task: ");
-        View.print(currentTask);
-        System.out.println();
         if (currentTask != null) {
             int nextFloorNumber = currentTask.getDestinationFloorNumber();
             if (nextFloorNumber < currentFloorNumber) {
@@ -52,8 +51,6 @@ public class Elevator implements Runnable {
     }
 
     private Task getCurrentTask() {
-        //TODO jeśli jest pełna, to bierze pierwszy task polegający na wyładowaniu
-        //bo teraz tylko bierze pierwszys task z brzegu i nie patrzy co bierze
         takeNewTask();
         if (hasFreeSpace()) {
             for (Task task : tasks) {
@@ -65,11 +62,11 @@ public class Elevator implements Runnable {
         return tasks.peek();
     }
 
-    Floor getFloor() {
+    public Floor getFloor() {
         return floor;
     }
 
-    String getName() {
+    public String getName() {
         return name;
     }
 
@@ -92,16 +89,7 @@ public class Elevator implements Runnable {
         return people.toArray(new Person[0]);
     }
 
-    private void getTask(Person newPassenger) {
-        newTasks.add(new Task(newPassenger));
-    }
-
-    LinkedBlockingQueue<Task> getTasks() {
-        return tasks;
-    }
-
     private void handleTask() {
-        //TODO: moveOneStep zajmuje 1000ms tylko jeśli winda się porusza
         Direction currentDirection = getCurrentDirection();
         moveOneStep(currentDirection);
         unloadPeople();
@@ -119,12 +107,17 @@ public class Elevator implements Runnable {
     //TODO kontroler odpala run(jeśli wcześniej winda nie miała tasków), a jak winda wykonuje ostatni task,to run się zamyka
     boolean isAvailable(int destinationFloorNumber) {
         Direction newTaskDirection = getNewTaskDirection(destinationFloorNumber);
-        return (people.size() < CAPACITY && newTaskDirection.equals(getCurrentDirection()))
+        return (hasFreeSpace() && newTaskDirection.equals(getCurrentDirection()))
                 || tasks.isEmpty();
     }
 
     public boolean isOperating() {
-        return thread.isAlive();
+        if(thread != null){
+            return thread.isAlive();
+        }else{
+            return false;
+        }
+
     }
 
     public void loadPeople(Direction elevatorDirection) {
@@ -147,7 +140,7 @@ public class Elevator implements Runnable {
             newPassenger = floor.popPersonFromAnyQueue();
         }
         if (newPassenger != null) {
-            View.personLoadMessage(this, newPassenger);
+            //View.personLoadMessage(this, newPassenger);
             people.add(newPassenger);
             removeLoadingTask(floor.getFloorNumber());
         }
@@ -173,7 +166,7 @@ public class Elevator implements Runnable {
             if (person.getDestinationFloor() == currentFloor.getFloorNumber()) {
                 people.remove(person);
                 currentFloor.addToTransportedPeople(person);
-                View.transportedPersonMessage(person, this);
+                //View.transportedPersonMessage(person, this);
             }
         }
         removeUnloadingTasks(currentFloor.getFloorNumber());
@@ -199,18 +192,18 @@ public class Elevator implements Runnable {
     public void run() {
         System.out.println(name + " start");
         takeNewTask();
-        while (hasTasksOrPassengers()) {//TODO dac tu zmienną/metodę, że jak wpisze q + [ENTER] to programIsRunnng zmienia sie na false
-            View.showFloors();
-            View.showElevator(this);
-            this.handleTask();
+        while (hasTasksOrPassengers()) {
+            //View.showFloors();
+            //View.showElevator(this);
+            handleTask();
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        View.showFloors();
-        View.showElevator(this);
+        //View.showFloors();
+        //View.showElevator(this);
         System.out.println(name + " shutdown");
 
     }

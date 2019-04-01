@@ -1,4 +1,4 @@
-package com.codecool;
+package com.codecool.model;
 
 import java.util.Random;
 

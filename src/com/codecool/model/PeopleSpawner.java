@@ -1,8 +1,9 @@
-package com.codecool;
+package com.codecool.model;
 
 public class PeopleSpawner implements Runnable {
     private final int numberOfPeopleToCreate;
     private final int spawnInterval;//milliseconds
+
     PeopleSpawner(int spawnInterval, int numberOfPeople){
         this.spawnInterval = spawnInterval;
         this.numberOfPeopleToCreate = numberOfPeople;

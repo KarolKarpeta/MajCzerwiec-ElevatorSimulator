@@ -1,4 +1,4 @@
-package com.codecool;
+package com.codecool.model;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -17,15 +17,17 @@ public class Floor {
      * @param person already created Person object to add to the Floor
      */
     public void addPersonToRelevantQueue(Person person) {
-        View.personCreationMessage(this.getFloorNumber(), person.getDestinationFloor());
-        View.personCreationMessage(this.getFloorNumber(), person);
+        //View.personCreationMessage(this.getFloorNumber(), person.getDestinationFloor());
+        //View.personCreationMessage(this.getFloorNumber(), person);
         if (person.getDestinationFloor() > this.floorNumber) {
             upQueue.add(person);
         } else {
             downQueue.add(person);
         }
-        Task newTask = new Task(floorNumber, true);
-        Building.getBuilding().assignTask(newTask);
+
+        System.out.println("XXXXXXXXXXXXX");//TODO ta linijka jest wykonywana dopiero jak winda przestanie działać
+        //TODO naprawić to, bo winda ma max 1 Task i max 1 pasażera. Może Floor ma działać na swoim wątku?
+        //TODO może Floor ma podobnie jak winda mieć swój Thread oraz pudełko na nowe taski
     }
 
     public void addToTransportedPeople(Person transportedPerson) {
