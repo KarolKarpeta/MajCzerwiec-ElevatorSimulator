@@ -22,7 +22,7 @@ public class Building {
         return thisBuilding;
     } //model
 
-    private static void createBuilding(int nrOfFloors, int nrOfElevators) {//model
+    public static void createBuilding(int nrOfFloors, int nrOfElevators) {//model
         if (thisBuilding == null) {
             thisBuilding = new Building(nrOfFloors, nrOfElevators);
         } else {
@@ -50,23 +50,9 @@ public class Building {
         return floors[floor.getFloorNumber() + 1];
     }//zaebpieczyc jw.
 
-    void generatePerson() {//controller
-        Random randomNumber = new Random();
 
-        int currentFloor = randomNumber.nextInt(floors.length);
-        int destinationFloor = currentFloor;
 
-        while (destinationFloor == currentFloor) {
-            destinationFloor = randomNumber.nextInt(floors.length);
-        }
-
-        Person person = new Person(destinationFloor);
-        floors[currentFloor].addPersonToRelevantQueue(person);
-        Task newTask = new Task(floors[currentFloor].getFloorNumber(), true);
-        assignTask(newTask);
-    }
-
-    private LinkedList<Elevator> getAvailableElevators(int destinationFloorNumber) {
+    public LinkedList<Elevator> getAvailableElevators(int destinationFloorNumber) {
         LinkedList<Elevator> availableElevators = new LinkedList<>();
         for (Elevator elevator : elevators) {
             if (elevator.isAvailable(destinationFloorNumber)) {
@@ -76,7 +62,7 @@ public class Building {
         return availableElevators;
     }
 
-    private Elevator getElevatorWithSmallestNumberOfTasks() {
+    public Elevator getElevatorWithSmallestNumberOfTasks() {
         int smallestNumberOfTasks = Integer.MAX_VALUE;
         Elevator leastBusy = elevators[0];
         for (Elevator elevator : elevators) {
@@ -89,7 +75,7 @@ public class Building {
         return leastBusy;
     }
 
-    private Elevator getClosestElevator(LinkedList<Elevator> availableElevators, Task task) {
+    public Elevator getClosestElevator(LinkedList<Elevator> availableElevators, Task task) {
         int distanceToClosestElevator = Integer.MAX_VALUE;
         Elevator theClosestElevator = availableElevators.get(0);
         for (Elevator elevator : availableElevators) {
@@ -102,38 +88,4 @@ public class Building {
         return theClosestElevator;
     }
 
-    void assignTask(Task task) { //controller
-        LinkedList<Elevator> availableElevators = getAvailableElevators(task.getDestinationFloorNumber());
-        Elevator theChosenElevator;
-        if (availableElevators.size() > 0) {
-            theChosenElevator = getClosestElevator(availableElevators, task);
-        } else {
-            theChosenElevator = getElevatorWithSmallestNumberOfTasks();
-        }
-        theChosenElevator.addTask(task);
-        if (!theChosenElevator.isOperating()) {
-            theChosenElevator.activate();
-        }
-    }
-
-    public static void main(String[] args) {//controller
-        createBuilding(5, 5);
-        PeopleSpawner peopleSpawner;
-        Thread spawnThread;
-
-        peopleSpawner = new PeopleSpawner(5, 11);
-        spawnThread = new Thread(peopleSpawner);
-        spawnThread.run();
-        System.out.println("Done");
-        peopleSpawner = new PeopleSpawner(5000, 1);
-        spawnThread = new Thread(peopleSpawner);
-        spawnThread.run();
-        System.out.println("Done");
-
-        peopleSpawner = new PeopleSpawner(20, 5);
-        spawnThread = new Thread(peopleSpawner);
-        spawnThread.run();
-
-        System.out.println("Done");
-    }
 }

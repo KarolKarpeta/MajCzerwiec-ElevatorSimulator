@@ -47,7 +47,7 @@ public class View {
         }
     }
 
-    public static void print(Person[] people) {
+    private static void print(Person[] people) {
         System.out.print("People:");
         for (Person person : people) {
             System.out.print(" " + person.getDestinationFloor());
@@ -58,6 +58,7 @@ public class View {
     public static void showElevator(Elevator elevator) {
         System.out.println(elevator.getName() + " on " + elevator.getFloor().getFloorNumber() + " floor, direction:" + elevator.getCurrentDirection());
         System.out.print("Tasks: ");
+        System.out.println(elevator.getNumberOfTasks());
         print(elevator.getPeople());
         System.out.println("#############################################################");
     }

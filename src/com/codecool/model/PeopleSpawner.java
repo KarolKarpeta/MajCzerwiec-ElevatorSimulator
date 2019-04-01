@@ -1,15 +1,17 @@
 package com.codecool.model;
 
+import com.codecool.controller.ElevatorSimulator;
+
 public class PeopleSpawner implements Runnable {
     private final int numberOfPeopleToCreate;
     private final int spawnInterval;//milliseconds
 
-    PeopleSpawner(int spawnInterval, int numberOfPeople){
+    public PeopleSpawner(int spawnInterval, int numberOfPeople){
         this.spawnInterval = spawnInterval;
         this.numberOfPeopleToCreate = numberOfPeople;
     }
 
-    PeopleSpawner(){
+    public PeopleSpawner(){
         this.spawnInterval = 10000;
         this.numberOfPeopleToCreate = 3;
     }
@@ -18,7 +20,7 @@ public class PeopleSpawner implements Runnable {
     public void run() {
         Building kolejowa = Building.getBuilding();
         for (int i = 0; i < numberOfPeopleToCreate; i++) {
-            kolejowa.generatePerson();
+            ElevatorSimulator.generatePerson();
             try {
                 Thread.sleep(spawnInterval);
             } catch (InterruptedException e) {

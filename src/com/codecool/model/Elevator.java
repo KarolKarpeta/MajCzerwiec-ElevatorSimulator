@@ -1,5 +1,7 @@
 package com.codecool.model;
 
+import com.codecool.view.View;
+
 import java.util.concurrent.LinkedBlockingQueue;
 
 
@@ -14,7 +16,7 @@ public class Elevator implements Runnable {
     private java.lang.Thread thread;
     //TODO specjalne pudełko/BlockingQueue? na nowe taski pochodzące z zewnątrz
     //TODO dodanie ElevatorState, do brana dostepnych wind
-    void activate() {
+    public void activate() {
         if (!thread.isAlive()) {
             thread = new Thread(this);
             thread.start();
@@ -22,9 +24,9 @@ public class Elevator implements Runnable {
         }
     }
 
-    void addTask(Task task) {
+    public void addTask(Task task) {
         newTasks.add(task);
-        //View.confirmTaskAssignmentToElevator(this, task);
+        View.confirmTaskAssignmentToElevator(this, task);
     }
 
     Elevator(Floor floor, int elevatorNumber) {
@@ -81,7 +83,7 @@ public class Elevator implements Runnable {
         }
     }
 
-    int getNumberOfTasks() {
+    public int getNumberOfTasks() {
         return tasks.size();
     }
 
@@ -140,7 +142,7 @@ public class Elevator implements Runnable {
             newPassenger = floor.popPersonFromAnyQueue();
         }
         if (newPassenger != null) {
-            //View.personLoadMessage(this, newPassenger);
+            View.personLoadMessage(this, newPassenger);
             people.add(newPassenger);
             removeLoadingTask(floor.getFloorNumber());
         }
@@ -194,7 +196,7 @@ public class Elevator implements Runnable {
         takeNewTask();
         while (hasTasksOrPassengers()) {
             //View.showFloors();
-            //View.showElevator(this);
+            View.showElevator(this);
             handleTask();
             try {
                 Thread.sleep(1000);
