@@ -1,6 +1,5 @@
 package com.codecool.model;
 
-import com.codecool.view.ElevatorView;
 import com.codecool.view.Terminal;
 
 import java.util.concurrent.LinkedBlockingQueue;
@@ -15,7 +14,7 @@ public class Elevator implements Runnable {
     private LinkedBlockingQueue<Person> people = new LinkedBlockingQueue<>();
     private LinkedBlockingQueue<Task> tasks = new LinkedBlockingQueue<>();//TODO to znowu na zwykłą LinkedList, i ona jest wewnętrzną strukturą windy
     private java.lang.Thread thread;
-    private ElevatorView elevatorView;
+
     //TODO specjalne pudełko/BlockingQueue? na nowe taski pochodzące z zewnątrz
     //TODO dodanie ElevatorState, do brana dostepnych wind
     public void activate() {
@@ -28,14 +27,13 @@ public class Elevator implements Runnable {
 
     public void addTask(Task task) {
         newTasks.add(task);
-        Terminal.confirmTaskAssignmentToElevator(this, task);
+        //Terminal.confirmTaskAssignmentToElevator(this, task);
     }
 
     Elevator(Floor floor, int elevatorNumber) {
         this.floor = floor;
         this.name = "Winda" + elevatorNumber;
-        this.thread = new Thread("thread"+name);
-        this.elevatorView = new ElevatorView();
+        this.thread = new Thread("thread" + name);
     }
 
     public Direction getCurrentDirection() {
@@ -109,9 +107,9 @@ public class Elevator implements Runnable {
         return people.size() < CAPACITY;
     }
 
-    private boolean hasLoadingTasks(int floorNumber){
-        for(Task task : tasks){
-            if(task.hasToLoad() && task.getDestinationFloorNumber() == floorNumber){
+    private boolean hasLoadingTasks(int floorNumber) {
+        for (Task task : tasks) {
+            if (task.hasToLoad() && task.getDestinationFloorNumber() == floorNumber) {
                 return true;
             }
         }
@@ -126,12 +124,11 @@ public class Elevator implements Runnable {
     }
 
     public boolean isOperating() {
-        if(thread != null){
+        if (thread != null) {
             return thread.isAlive();
-        }else{
+        } else {
             return false;
         }
-
     }
 
     private void loadPeople(Direction elevatorDirection) {
@@ -143,7 +140,7 @@ public class Elevator implements Runnable {
             newTask = newPassenger.getUnloadingTask();
             addTask(newTask);
         }
-        while(hasLoadingTasks(floor.getFloorNumber()) && floor.isEmpty() && Direction.WAITING.equals(elevatorDirection)){
+        while (hasLoadingTasks(floor.getFloorNumber()) && floor.isEmpty() && Direction.WAITING.equals(elevatorDirection)) {
             removeLoadingTask(floor.getFloorNumber());
         }
     }
@@ -158,7 +155,7 @@ public class Elevator implements Runnable {
             newPassenger = floor.popPersonFromAnyQueue();
         }
         if (newPassenger != null) {
-            Terminal.personLoadMessage(this, newPassenger);
+            //Terminal.personLoadMessage(this, newPassenger);
             people.add(newPassenger);
         }
         return newPassenger;
@@ -175,7 +172,6 @@ public class Elevator implements Runnable {
         } else if (Direction.GOING_DOWN.equals(current)) {
             floor = Building.getBuilding().getLowerFloor(this.floor);
         }
-        elevatorView.showElevator(this);
     }
 
     public void unloadPeople() {
@@ -202,7 +198,7 @@ public class Elevator implements Runnable {
         for (Task task : tasks) {
             if (task.hasToLoad() && task.getDestinationFloorNumber() == floorNumber) {
                 tasks.remove(task);
-                System.out.println("<<<<<<<<<<<<< TASK REMOVED >>>>>>>");
+                //System.out.println("<<<<<<<<<<<<< TASK REMOVED >>>>>>>");
                 return;
             }
         }
@@ -213,8 +209,8 @@ public class Elevator implements Runnable {
         System.out.println(name + " start");
         takeNewTask();
         while (hasTasksOrPassengers()) {
-            Terminal.showFloors();
-            Terminal.showElevator(this);
+            //Terminal.showFloors();
+            //Terminal.showElevator(this);
             handleTask();
             try {
                 Thread.sleep(1000);
@@ -222,7 +218,7 @@ public class Elevator implements Runnable {
                 e.printStackTrace();
             }
         }
-        Terminal.showFloors();
+        //Terminal.showFloors();
         //Terminal.showElevator(this);
         System.out.println(name + " shutdown");
 

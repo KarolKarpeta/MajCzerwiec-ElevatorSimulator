@@ -1,5 +1,7 @@
 package com.codecool.model;
 
+import com.codecool.view.FloorView;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,7 +11,6 @@ public class Floor {
     private LinkedList<Person> downQueue = new LinkedList<>();
     private List<Person> transportedPeople = new LinkedList<>();
     private int floorNumber;
-
 
     /**
      * Appends Person to upQueue  or DownQueue

@@ -38,8 +38,8 @@ public class ElevatorSimulator {
         }
     }
 
-    /*public static void main(String[] args) {
-        Building.createBuilding(5, 5);
+    public static void main(String[] args) {
+        Building.createBuilding();
         PeopleSpawner peopleSpawner;
         Thread spawnThread;
 
@@ -57,5 +57,5 @@ public class ElevatorSimulator {
         spawnThread = new Thread(peopleSpawner);
         spawnThread.run();
         System.out.println("Done");
-    }*/
+    }
 }

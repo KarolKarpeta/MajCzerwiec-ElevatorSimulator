@@ -1,6 +1,7 @@
 package com.codecool.view;
 
 import com.codecool.controller.Config;
+import com.codecool.model.Floor;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
@@ -8,7 +9,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.shape.Rectangle;
 
 public class FloorView extends HBox {
-    public FloorView() {
+    private Floor floor;
+
+    public FloorView(Floor floor) {
         super(10);
         //this.setBorder(new Border(new BorderStroke()));
         this.setStyle("-fx-padding: 10;" +
@@ -21,5 +24,6 @@ public class FloorView extends HBox {
         this.setPrefHeight(Config.FLOOR_HEIGHT);
         this.setWidth(400);//TODO poprawić to na responsywną szerokość
         this.setPrefWidth(400);
+        this.floor = floor;
     }
 }

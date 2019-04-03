@@ -39,12 +39,16 @@ public class Building {
         for (int i = 0; i < nrOfElevators; i++) {
             elevators[i] = new Elevator(floors[0], i);
         }
-        Terminal.buildingCreationMessage(nrOfFloors, nrOfElevators);
+        //Terminal.buildingCreationMessage(nrOfFloors, nrOfElevators);
     }
 
     public Floor getLowerFloor(Floor floor) {
-        return floors[floor.getFloorNumber() - 1];
-    }//zabezpieczyć na nullpointerexception
+        if (floors[floor.getFloorNumber() - 1] == null) {
+            return floors[floor.getFloorNumber()];
+        } else {
+            return floors[floor.getFloorNumber() - 1];
+        }
+    }
 
     public Floor getHigherFloor(Floor floor) {
         return floors[floor.getFloorNumber() + 1];
