@@ -1,7 +1,6 @@
 package com.codecool;
 
-import java.util.LinkedList;
-import java.util.Random;
+import java.util.*;
 
 public class Building {
     private final Elevator[] elevators;
@@ -22,7 +21,7 @@ public class Building {
         return thisBuilding;
     } //model
 
-    private static void createBuilding(int nrOfFloors, int nrOfElevators) {//model
+    static void createBuilding(int nrOfFloors, int nrOfElevators) {//model
         if (thisBuilding == null) {
             thisBuilding = new Building(nrOfFloors, nrOfElevators);
         } else {
@@ -115,24 +114,4 @@ public class Building {
         }
     }
 
-    public static void main(String[] args) {//controller
-        createBuilding(4, 1);
-        PeopleSpawner peopleSpawner = new PeopleSpawner();
-        Thread spawnThread = new Thread(peopleSpawner);
-        spawnThread.start();
-        try {
-            spawnThread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        peopleSpawner = new PeopleSpawner(20, 5);
-        spawnThread = new Thread(peopleSpawner);
-        spawnThread.start();
-        try {
-            spawnThread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        System.out.println("Done");
-    }
 }
