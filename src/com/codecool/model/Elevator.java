@@ -1,6 +1,6 @@
 package com.codecool.model;
 
-import com.codecool.view.View;
+import com.codecool.view.Terminal;
 
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -26,7 +26,7 @@ public class Elevator implements Runnable {
 
     public void addTask(Task task) {
         newTasks.add(task);
-        View.confirmTaskAssignmentToElevator(this, task);
+        Terminal.confirmTaskAssignmentToElevator(this, task);
     }
 
     Elevator(Floor floor, int elevatorNumber) {
@@ -155,7 +155,7 @@ public class Elevator implements Runnable {
             newPassenger = floor.popPersonFromAnyQueue();
         }
         if (newPassenger != null) {
-            View.personLoadMessage(this, newPassenger);
+            Terminal.personLoadMessage(this, newPassenger);
             people.add(newPassenger);
         }
         return newPassenger;
@@ -180,7 +180,7 @@ public class Elevator implements Runnable {
             if (person.getDestinationFloor() == currentFloor.getFloorNumber()) {
                 people.remove(person);
                 currentFloor.addToTransportedPeople(person);
-                //View.transportedPersonMessage(person, this);
+                //Terminal.transportedPersonMessage(person, this);
             }
         }
         removeUnloadingTasks(currentFloor.getFloorNumber());
@@ -209,8 +209,8 @@ public class Elevator implements Runnable {
         System.out.println(name + " start");
         takeNewTask();
         while (hasTasksOrPassengers()) {
-            View.showFloors();
-            View.showElevator(this);
+            Terminal.showFloors();
+            Terminal.showElevator(this);
             handleTask();
             try {
                 Thread.sleep(1000);
@@ -218,8 +218,8 @@ public class Elevator implements Runnable {
                 e.printStackTrace();
             }
         }
-        View.showFloors();
-        //View.showElevator(this);
+        Terminal.showFloors();
+        //Terminal.showElevator(this);
         System.out.println(name + " shutdown");
 
     }

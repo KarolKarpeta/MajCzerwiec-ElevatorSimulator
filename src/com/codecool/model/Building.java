@@ -1,9 +1,8 @@
 package com.codecool.model;
 
-import com.codecool.view.View;
+import com.codecool.view.Terminal;
 
 import java.util.LinkedList;
-import java.util.Random;
 
 public class Building {
     private final Elevator[] elevators;
@@ -39,7 +38,7 @@ public class Building {
         for (int i = 0; i < nrOfElevators; i++) {
             elevators[i] = new Elevator(floors[0], i);
         }
-        View.buildingCreationMessage(nrOfFloors, nrOfElevators);
+        Terminal.buildingCreationMessage(nrOfFloors, nrOfElevators);
     }
 
     public Floor getLowerFloor(Floor floor) {

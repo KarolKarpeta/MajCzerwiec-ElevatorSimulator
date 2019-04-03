@@ -17,8 +17,8 @@ public class Floor {
      * @param person already created Person object to add to the Floor
      */
     public void addPersonToRelevantQueue(Person person) {
-        //View.personCreationMessage(this.getFloorNumber(), person.getDestinationFloor());
-        //View.personCreationMessage(this.getFloorNumber(), person);
+        //Terminal.personCreationMessage(this.getFloorNumber(), person.getDestinationFloor());
+        //Terminal.personCreationMessage(this.getFloorNumber(), person);
         if (person.getDestinationFloor() > this.floorNumber) {
             upQueue.add(person);
         } else {
