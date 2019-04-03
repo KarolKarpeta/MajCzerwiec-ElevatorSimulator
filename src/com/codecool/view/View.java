@@ -58,7 +58,6 @@ public class View {
     public static void showElevator(Elevator elevator) {
         System.out.println(elevator.getName() + " on " + elevator.getFloor().getFloorNumber() + " floor, direction:" + elevator.getCurrentDirection());
         System.out.print("Tasks: ");
-        System.out.println(elevator.getNumberOfTasks());
         print(elevator.getPeople());
         System.out.println("#############################################################");
     }

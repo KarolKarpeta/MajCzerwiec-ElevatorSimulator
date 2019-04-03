@@ -106,6 +106,15 @@ public class Elevator implements Runnable {
         return people.size() < CAPACITY;
     }
 
+    private boolean hasLoadingTasks(int floorNumber){
+        for(Task task : tasks){
+            if(task.hasToLoad() && task.getDestinationFloorNumber() == floorNumber){
+                return true;
+            }
+        }
+        return false;
+    }
+
     //TODO kontroler odpala run(jeśli wcześniej winda nie miała tasków), a jak winda wykonuje ostatni task,to run się zamyka
     boolean isAvailable(int destinationFloorNumber) {
         Direction newTaskDirection = getNewTaskDirection(destinationFloorNumber);
@@ -122,13 +131,17 @@ public class Elevator implements Runnable {
 
     }
 
-    public void loadPeople(Direction elevatorDirection) {
+    private void loadPeople(Direction elevatorDirection) {
         Person newPassenger;
         Task newTask;
         while (hasFreeSpace() && !floor.isEmpty(elevatorDirection)) {
             newPassenger = loadPerson(elevatorDirection);
+            removeLoadingTask(floor.getFloorNumber());
             newTask = newPassenger.getUnloadingTask();
             addTask(newTask);
+        }
+        while(hasLoadingTasks(floor.getFloorNumber()) && floor.isEmpty() && Direction.WAITING.equals(elevatorDirection)){
+            removeLoadingTask(floor.getFloorNumber());
         }
     }
 
@@ -144,7 +157,6 @@ public class Elevator implements Runnable {
         if (newPassenger != null) {
             View.personLoadMessage(this, newPassenger);
             people.add(newPassenger);
-            removeLoadingTask(floor.getFloorNumber());
         }
         return newPassenger;
     }
@@ -186,6 +198,8 @@ public class Elevator implements Runnable {
         for (Task task : tasks) {
             if (task.hasToLoad() && task.getDestinationFloorNumber() == floorNumber) {
                 tasks.remove(task);
+                System.out.println("<<<<<<<<<<<<< TASK REMOVED >>>>>>>");
+                return;
             }
         }
     }
@@ -195,7 +209,7 @@ public class Elevator implements Runnable {
         System.out.println(name + " start");
         takeNewTask();
         while (hasTasksOrPassengers()) {
-            //View.showFloors();
+            View.showFloors();
             View.showElevator(this);
             handleTask();
             try {
@@ -204,7 +218,7 @@ public class Elevator implements Runnable {
                 e.printStackTrace();
             }
         }
-        //View.showFloors();
+        View.showFloors();
         //View.showElevator(this);
         System.out.println(name + " shutdown");
 
