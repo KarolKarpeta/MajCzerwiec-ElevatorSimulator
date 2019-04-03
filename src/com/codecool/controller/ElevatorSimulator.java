@@ -23,7 +23,7 @@ public class ElevatorSimulator {
         assignTask(newTask);
     }
 
-    private static void assignTask(Task task) { //controller
+    private static void assignTask(Task task) {
         Building building = Building.getBuilding();
         LinkedList<Elevator> availableElevators = building.getAvailableElevators(task.getDestinationFloorNumber());
         Elevator theChosenElevator;
@@ -38,7 +38,7 @@ public class ElevatorSimulator {
         }
     }
 
-    public static void main(String[] args) {//controller
+    /*public static void main(String[] args) {
         Building.createBuilding(5, 5);
         PeopleSpawner peopleSpawner;
         Thread spawnThread;
@@ -47,6 +47,7 @@ public class ElevatorSimulator {
         spawnThread = new Thread(peopleSpawner);
         spawnThread.run();
         System.out.println("Done");
+
         peopleSpawner = new PeopleSpawner(5000, 1);
         spawnThread = new Thread(peopleSpawner);
         spawnThread.run();
@@ -55,7 +56,6 @@ public class ElevatorSimulator {
         peopleSpawner = new PeopleSpawner(20, 5);
         spawnThread = new Thread(peopleSpawner);
         spawnThread.run();
-
         System.out.println("Done");
-    }
+    }*/
 }

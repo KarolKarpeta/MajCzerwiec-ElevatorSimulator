@@ -1,5 +1,6 @@
 package com.codecool.model;
 
+import com.codecool.controller.Config;
 import com.codecool.view.Terminal;
 
 import java.util.LinkedList;
@@ -21,9 +22,9 @@ public class Building {
         return thisBuilding;
     } //model
 
-    public static void createBuilding(int nrOfFloors, int nrOfElevators) {//model
+    public static void createBuilding() {//model
         if (thisBuilding == null) {
-            thisBuilding = new Building(nrOfFloors, nrOfElevators);
+            thisBuilding = new Building(Config.FLOORS_NUMBER, Config.ELEVATORS_NUMBER);
         } else {
             System.out.println("Building already exists!");
         }

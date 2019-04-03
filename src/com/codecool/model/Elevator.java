@@ -1,12 +1,13 @@
 package com.codecool.model;
 
+import com.codecool.view.ElevatorView;
 import com.codecool.view.Terminal;
 
 import java.util.concurrent.LinkedBlockingQueue;
 
 
 public class Elevator implements Runnable {
-    private static final int CAPACITY = 10;
+    private static final int CAPACITY = 3;
     private static final int SPEED = 100;
     private Floor floor;
     private String name;
@@ -14,6 +15,7 @@ public class Elevator implements Runnable {
     private LinkedBlockingQueue<Person> people = new LinkedBlockingQueue<>();
     private LinkedBlockingQueue<Task> tasks = new LinkedBlockingQueue<>();//TODO to znowu na zwykłą LinkedList, i ona jest wewnętrzną strukturą windy
     private java.lang.Thread thread;
+    private ElevatorView elevatorView;
     //TODO specjalne pudełko/BlockingQueue? na nowe taski pochodzące z zewnątrz
     //TODO dodanie ElevatorState, do brana dostepnych wind
     public void activate() {
@@ -33,6 +35,7 @@ public class Elevator implements Runnable {
         this.floor = floor;
         this.name = "Winda" + elevatorNumber;
         this.thread = new Thread("thread"+name);
+        this.elevatorView = new ElevatorView();
     }
 
     public Direction getCurrentDirection() {
@@ -172,6 +175,7 @@ public class Elevator implements Runnable {
         } else if (Direction.GOING_DOWN.equals(current)) {
             floor = Building.getBuilding().getLowerFloor(this.floor);
         }
+        elevatorView.showElevator(this);
     }
 
     public void unloadPeople() {
