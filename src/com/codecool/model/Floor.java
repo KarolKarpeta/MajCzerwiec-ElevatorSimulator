@@ -25,14 +25,12 @@ public class Floor {
         } else {
             downQueue.add(person);
         }
-
-        System.out.println("XXXXXXXXXXXXX");//TODO ta linijka jest wykonywana dopiero jak winda przestanie działać
-        //TODO naprawić to, bo winda ma max 1 Task i max 1 pasażera. Może Floor ma działać na swoim wątku?
-        //TODO może Floor ma podobnie jak winda mieć swój Thread oraz pudełko na nowe taski
+        //TODO info o zmianie w modelu
     }
 
     public void addToTransportedPeople(Person transportedPerson) {
         this.transportedPeople.add(transportedPerson);
+        //TODO info o zmianie w modelu
     }
 
     boolean isEmpty(Direction elevatorDirection) {

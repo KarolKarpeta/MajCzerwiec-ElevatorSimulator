@@ -20,9 +20,9 @@ public class Building {
 
     public static Building getBuilding() {
         return thisBuilding;
-    } //model
+    }
 
-    public static void createBuilding() {//model
+    public static void createBuilding() {
         if (thisBuilding == null) {
             thisBuilding = new Building(Config.FLOORS_NUMBER, Config.ELEVATORS_NUMBER);
         } else {
@@ -30,7 +30,7 @@ public class Building {
         }
     }
 
-    private Building(int nrOfFloors, int nrOfElevators) {//model
+    private Building(int nrOfFloors, int nrOfElevators) {
         floors = new Floor[nrOfFloors];
         for (int i = 0; i < nrOfFloors; i++) {
             floors[i] = new Floor(i);

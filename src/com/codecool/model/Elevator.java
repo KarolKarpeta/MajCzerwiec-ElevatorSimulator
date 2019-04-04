@@ -156,6 +156,7 @@ public class Elevator implements Runnable {
         }
         if (newPassenger != null) {
             //Terminal.personLoadMessage(this, newPassenger);
+            //TODO info o zmianie w modelu
             people.add(newPassenger);
         }
         return newPassenger;
@@ -172,6 +173,7 @@ public class Elevator implements Runnable {
         } else if (Direction.GOING_DOWN.equals(current)) {
             floor = Building.getBuilding().getLowerFloor(this.floor);
         }
+        //TODO info o zmianie w modelu
     }
 
     public void unloadPeople() {
@@ -180,6 +182,7 @@ public class Elevator implements Runnable {
             if (person.getDestinationFloor() == currentFloor.getFloorNumber()) {
                 people.remove(person);
                 currentFloor.addToTransportedPeople(person);
+                //TODO info o zmianie w modelu
                 //Terminal.transportedPersonMessage(person, this);
             }
         }
