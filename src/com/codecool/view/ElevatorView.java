@@ -17,8 +17,8 @@ public class ElevatorView extends Rectangle implements PropertyChangeListener {
 
     public ElevatorView(Floor floor) {
         super(Config.ELEVATOR_WIDTH, Config.FLOOR_HEIGHT, Color.AQUAMARINE);
-        this.setY(5 * Config.FLOOR_HEIGHT);
         this.floor = floor;
+        this.setTranslateY(floor.getFloorNumber() * Config.FLOOR_HEIGHT);
         passengersNumber = 0;
     }
 
@@ -29,7 +29,7 @@ public class ElevatorView extends Rectangle implements PropertyChangeListener {
             this.passengersNumber = (int) evt.getNewValue();
         }
         int floorNumber = floor.getFloorNumber();
-        this.setY(floorNumber * Config.FLOOR_HEIGHT);
+        this.setTranslateY(floorNumber * Config.FLOOR_HEIGHT);
         System.out.println("Elevator in " + floorNumber + " floor, has " + passengersNumber + " people");
     }
 

@@ -191,7 +191,6 @@ public class Elevator implements Runnable {
             floor = Building.getBuilding().getLowerFloor(floor);
         }
         support.firePropertyChange("floor", previousFloor, floor);
-
     }
 
     public void unloadPeople() {

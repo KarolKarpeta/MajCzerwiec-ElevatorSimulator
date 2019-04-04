@@ -41,7 +41,7 @@ public class Main extends Application {
         PeopleSpawner peopleSpawner;
         Thread spawnThread;
 
-        peopleSpawner = new PeopleSpawner(5, 11);
+        peopleSpawner = new PeopleSpawner(100, 11);
         spawnThread = new Thread(peopleSpawner);
         spawnThread.run();
 
