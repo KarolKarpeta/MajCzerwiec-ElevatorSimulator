@@ -18,7 +18,6 @@ public class ElevatorView extends Rectangle implements PropertyChangeListener {
     public ElevatorView(Floor floor) {
         super(Config.ELEVATOR_WIDTH, Config.FLOOR_HEIGHT, Color.AQUAMARINE);
         this.floor = floor;
-        this.setTranslateY(floor.getFloorNumber() * Config.FLOOR_HEIGHT);
         passengersNumber = 0;
     }
 
