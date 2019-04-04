@@ -12,19 +12,19 @@ public class BuildingView {
 
 
     public BuildingView(Pane layout, Building building) {
-        HBox elevatorsArea = new HBox(10);
-        Elevator[] elevators = building.getElevators();
-        for (int i = 0; i < Config.ELEVATORS_NUMBER; i++) {
-            ElevatorView elevatorView = new ElevatorView(elevators[i]);
-            //elevators[i].setElevatorView(elevatorView);
-            elevatorsArea.getChildren().add(elevatorView);
-        }
         VBox floorsArea = new VBox();
         Floor[] floors = building.getFloors();
         for (int i = 0; i < Config.FLOORS_NUMBER; i++) {
             FloorView floorView = new FloorView(floors[i]);
-            //floorView.getChildren().add(new PersonView());
             floorsArea.getChildren().add(floorView);
+        }
+        HBox elevatorsArea = new HBox(10);
+        Elevator[] elevators = building.getElevators();
+        for (int i = 0; i < Config.ELEVATORS_NUMBER; i++) {
+            Elevator observable = elevators[i];
+            ElevatorView observer = new ElevatorView(observable.getFloor());
+            observable.addPropertyChangeListener(observer);
+            elevatorsArea.getChildren().add(observer);
         }
         layout.getChildren().addAll(new HBox(elevatorsArea, floorsArea));
     }

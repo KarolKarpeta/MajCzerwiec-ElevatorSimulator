@@ -1,6 +1,7 @@
 package com.codecool.model;
 
-import com.codecool.view.Terminal;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -14,6 +15,8 @@ public class Elevator implements Runnable {
     private LinkedBlockingQueue<Person> people = new LinkedBlockingQueue<>();
     private LinkedBlockingQueue<Task> tasks = new LinkedBlockingQueue<>();//TODO to znowu na zwykłą LinkedList, i ona jest wewnętrzną strukturą windy
     private java.lang.Thread thread;
+
+    private PropertyChangeSupport support;
 
     //TODO specjalne pudełko/BlockingQueue? na nowe taski pochodzące z zewnątrz
     //TODO dodanie ElevatorState, do brana dostepnych wind
@@ -30,10 +33,24 @@ public class Elevator implements Runnable {
         //Terminal.confirmTaskAssignmentToElevator(this, task);
     }
 
-    Elevator(Floor floor, int elevatorNumber) {
+    public Elevator(Floor floor, int elevatorNumber) {
         this.floor = floor;
         this.name = "Winda" + elevatorNumber;
         this.thread = new Thread("thread" + name);
+        support = new PropertyChangeSupport(this);
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener pcl) {
+        support.addPropertyChangeListener(pcl);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener pcl) {
+        support.removePropertyChangeListener(pcl);
+    }
+
+    public void setFloor(Floor newFloor) {
+        support.firePropertyChange("floor", this.floor, newFloor);
+        this.floor = newFloor;
     }
 
     public Direction getCurrentDirection() {
@@ -116,7 +133,6 @@ public class Elevator implements Runnable {
         return false;
     }
 
-    //TODO kontroler odpala run(jeśli wcześniej winda nie miała tasków), a jak winda wykonuje ostatni task,to run się zamyka
     boolean isAvailable(int destinationFloorNumber) {
         Direction newTaskDirection = getNewTaskDirection(destinationFloorNumber);
         return (hasFreeSpace() && newTaskDirection.equals(getCurrentDirection()))
@@ -156,33 +172,36 @@ public class Elevator implements Runnable {
         }
         if (newPassenger != null) {
             //Terminal.personLoadMessage(this, newPassenger);
-            //TODO info o zmianie w modelu
+            support.firePropertyChange("passengersNumber", people.size(), people.size()+1);
             people.add(newPassenger);
         }
         return newPassenger;
     }
 
     private void moveOneStep(Direction current) {
+        Floor previousFloor = floor;
         try {
             Thread.sleep(SPEED);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         if (Direction.GOING_UP.equals(current)) {
-            floor = Building.getBuilding().getHigherFloor(this.floor);
+            floor = Building.getBuilding().getHigherFloor(floor);
         } else if (Direction.GOING_DOWN.equals(current)) {
-            floor = Building.getBuilding().getLowerFloor(this.floor);
+            floor = Building.getBuilding().getLowerFloor(floor);
         }
-        //TODO info o zmianie w modelu
+        support.firePropertyChange("floor", previousFloor, floor);
+
     }
 
     public void unloadPeople() {
         Floor currentFloor = this.getFloor();
+        int oldPassengersNumber = people.size();
         for (Person person : people) {
             if (person.getDestinationFloor() == currentFloor.getFloorNumber()) {
                 people.remove(person);
                 currentFloor.addToTransportedPeople(person);
-                //TODO info o zmianie w modelu
+                support.firePropertyChange("passengersNumber", oldPassengersNumber, people.size());
                 //Terminal.transportedPersonMessage(person, this);
             }
         }

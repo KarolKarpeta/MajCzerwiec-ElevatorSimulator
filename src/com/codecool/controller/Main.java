@@ -26,7 +26,6 @@ public class Main extends Application {
         stage.setTitle("Elevator Simulator");
         Pane layout = new Pane();
         Scene scene = new Scene(layout, Config.WINDOW_WIDTH, Config.WINDOW_HEIGHT);
-        Building.createBuilding();
         BuildingView buildingView = new BuildingView(layout, Building.getBuilding());
         stage.setScene(scene);
         stage.setMaximized(true);
@@ -35,10 +34,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        prepareWindow(stage);
-
 
         Building.createBuilding();
+        prepareWindow(stage);
+
         PeopleSpawner peopleSpawner;
         Thread spawnThread;
 
