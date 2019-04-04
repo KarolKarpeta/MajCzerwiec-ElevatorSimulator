@@ -133,9 +133,24 @@ public class Elevator implements Runnable {
         return false;
     }
 
+    private int getNumberOfLoadingTasks(){
+        int counter = 0;
+        for (Task task : tasks) {
+            if (task.hasToLoad()) {
+                counter++;
+            }
+        }
+        return counter;
+    }
+
+    private boolean hasFreeSlots(){
+        //true if numberOfPassengers + numberOfLoadingTasks < CAPACITY
+        return (people.size() + getNumberOfLoadingTasks()) < CAPACITY;
+    }
+
     boolean isAvailable(int destinationFloorNumber) {
         Direction newTaskDirection = getNewTaskDirection(destinationFloorNumber);
-        return (hasFreeSpace() && newTaskDirection.equals(getCurrentDirection()))
+        return (hasFreeSlots() && newTaskDirection.equals(getCurrentDirection()))
                 || tasks.isEmpty();
     }
 
