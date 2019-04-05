@@ -22,7 +22,7 @@ public class Main extends Application {
     }
 
 
-    private static void prepareWindow(Stage stage){
+    private static void prepareWindow(Stage stage) {
         stage.setTitle("Elevator Simulator");
         Pane layout = new Pane();
         Scene scene = new Scene(layout, Config.WINDOW_WIDTH, Config.WINDOW_HEIGHT);
@@ -41,8 +41,13 @@ public class Main extends Application {
         PeopleSpawner peopleSpawner;
         Thread spawnThread;
 
-        peopleSpawner = new PeopleSpawner(100, 11);
+        peopleSpawner = new PeopleSpawner(20000, 1);
         spawnThread = new Thread(peopleSpawner);
         spawnThread.run();
+
+        peopleSpawner = new PeopleSpawner(100, 10);
+        spawnThread = new Thread(peopleSpawner);
+        spawnThread.run();
+
     }
 }
