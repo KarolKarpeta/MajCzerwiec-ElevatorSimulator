@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class ElevatorSimulator {
 
-    public static void generatePerson() {//controller
+    public static void generatePerson() {//todo podzielić na część robiącą ludzi i kontroler
         Random randomNumber = new Random();
         Building kolejowa = Building.getBuilding();
         int currentFloor = randomNumber.nextInt(kolejowa.getFloors().length);

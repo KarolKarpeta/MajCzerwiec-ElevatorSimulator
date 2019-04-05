@@ -193,7 +193,7 @@ public class Elevator implements Runnable {
         return newPassenger;
     }
 
-    private void moveOneStep(Direction current) {
+    private void moveOneStep(Direction current) {//todo jak winda jest pełna i ma jechać 4 pietra, to niech jedzie od razu 4 piertra, a czas poruszania bedzie dłuższy
         Floor previousFloor = floor;
         try {
             Thread.sleep(SPEED);
